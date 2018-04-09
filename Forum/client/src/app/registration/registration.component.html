@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>Register</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+
+<body>
+	<fieldset>
+		<h1>Register</h1>
+		<form (submit)=register()>
+			<input type="text" name="fname" placeholder="First Name" [(ngModel)]="user.firstName">
+			<input type="text" name="lname" placeholder="Last Name" [(ngModel)]="user.lastName">
+			<input type="text" name="email" placeholder="Email" [(ngModel)]="user.email">
+			<input type="text" name="pw" placeholder="Password" [(ngModel)]="user.password">
+			<input type="text" name="cpw" placeholder="Confirm Password">
+			<input type="submit" value="Register">
+		</form>
+	</fieldset>
+	<p>Already a member? <a [routerLink]="['/login']">Login</a></p>
+</body>
+
+</html>
