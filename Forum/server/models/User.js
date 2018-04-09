@@ -1,5 +1,4 @@
 const mongoose = require("mongoose"),
-    bcrypt = require('bcrypt-nodejs'),
     UserSchema = new mongoose.Schema({
         firstName: {type: String, required: true},
         lastName: {type: String, required: true},
@@ -9,9 +8,5 @@ const mongoose = require("mongoose"),
         _answers: [{type: mongoose.Schema.Types.ObjectId, ref: 'Answer'}],
         _comments: [{type: mongoose.Schema.Types.ObjectId, ref: 'Comment'}]
     }, {timestamps: true});
-
-UserSchema.methods.generateHash = function(password){
-    return bcrypt.hashSync(password, bcrypt.genSaltSync(9));
-}
     
 mongoose.model("User", UserSchema);

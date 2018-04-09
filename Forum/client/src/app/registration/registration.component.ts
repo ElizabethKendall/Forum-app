@@ -17,7 +17,10 @@ export class RegistrationComponent implements OnInit {
 	ngOnInit() {}
 
 	register(){
-		console.log(this.user);
+		console.log('component ',this.user);
+		this._service.register(this.user, (res) => {
+			console.log('back in component, route done.', res.data);
+		});
 	}
 
 }

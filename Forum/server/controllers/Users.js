@@ -1,4 +1,5 @@
-const mongoose = require("mongoose");
+const mongoose = require("mongoose"),
+    bcrypt = require('bcryptjs');
 
 var User = mongoose.model("User");
 
@@ -19,8 +20,18 @@ module.exports = {
     },
 
     "usersPOST":(req, res) => {
-        
+        console.log('in controller ',req.body);
         var user = new User(req.body);
+        bcrypt.genSalt(10, (err, salt) => {
+            bcrypt.hash(user.password, salt, (err, hash) => {
+                if(err){
+                    console.log(err);
+                    return;
+                }
+                user.password = hash;
+                user.save();
+            });
+        });
         user.save(function(err){
             if(err){
                 res.json({message:"Error", errors: user.errors});
