@@ -1,10 +1,22 @@
 const mongoose = require('mongoose');
 
 var Question = mongoose.model("Question");
+var User = mongoose.model("User");
 
 module.exports = {
+    // "questionsGET": (req, res) => {
+    //     Question.find({}, function (err, questions) {
+    //         if (err) {
+    //             res.json({ message: "Error", errors: questions.errors });
+    //         }
+    //         else {
+    //             res.json({ message: "Success", data: questions });
+    //         }
+    //     });
+    // },
+
     "questionsGET": (req, res) => {
-        Question.find({}, function (err, questions) {
+        Question.find({}).populate('_user').exec(function (err, questions) {
             if (err) {
                 res.json({ message: "Error", errors: questions.errors });
             }
@@ -26,10 +38,25 @@ module.exports = {
         });
     },
 
+    // "questionByIdGET": (req, res) => {
+    //     Question.find({ _id: req.params.id }, function (err, question) {
+    //         if (err) {
+    //             res.json({ message: "Error", errors: err });
+    //         }
+    //         else {
+    //             res.json({ message: "Success", data: question });
+    //         }
+    //     });
+    // },
+
     "questionByIdGET": (req, res) => {
-        Question.find({ _id: req.params.id }, function (err, question) {
+        // To understand the populate syntax below, see "Populating across multiple levels" at http://mongoosejs.com/docs/populate.html
+        Question.find({ _id: req.params.id })
+        .populate('_user')
+        .populate({path: '_answer', populate:[{path:'_user'},{path:'_comments', populate: {path:'_user'}}]})
+        .exec(function (err, question) {
             if (err) {
-                res.json({ message: "Error", errors: question.errors });
+                res.json({ message: "Error", errors: err });
             }
             else {
                 res.json({ message: "Success", data: question });

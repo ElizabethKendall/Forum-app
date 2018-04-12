@@ -1,0 +1,74 @@
+<div class="main">
+  <section id="question-top">
+    <div class="container">
+      <div class="row">
+        <div class="float-left question-top-left">
+          <a href="/forum">Back to Forum</a>
+        </div>
+        <div class="float-right question-top-right">
+
+        </div>
+      </div>
+    </div>
+  </section>
+  <section id="question">
+    <div class="container">
+      <div class="row">
+        <div class="card question-card">
+          <div class="card-authorship">
+            <div class="author">{{question._user.firstName}} {{question._user.lastName}}</div>
+            <div class="dateAuthored">{{question.createdAt | date:'fullDate'}}</div>
+            <div class="card-actions"><a class="text-warning" href="/answers/new/{{question._id}}">Post Answer</a></div>
+          </div>
+          <div class="card-body">
+            <div class="forum-content-type float-left">Q</div>
+            {{question.content}}
+          </div> 
+        </div>
+      </div>
+    </div>
+  </section>
+  <section id="answers">
+    <div class="container">
+      <div class="row" *ngFor='let answer of question._answer'>
+        <div class="card answer-card">         
+          <div class="card-authorship">
+            <div class="author">{{answer._user.firstName}} {{answer._user.lastName}}</div>
+            <div class="dateAuthored">{{answer.createdAt | date:'fullDate'}}</div>
+            <div class="card-actions"><a class="text-warning" href="/comments/new/{{answer._id}}">Post Comment</a></div>
+          </div>
+          <div class="card-body">
+            <div class="forum-content-type float-left">A</div>
+            {{answer.content}}
+          </div>          
+        </div>
+        <div class="container comments-container">
+          <div class="row" *ngFor='let comment of answer._comments'>
+            <div class="card comment-card">
+              <div class="card-authorship">
+                <div class="author">{{comment._user.firstName}} {{comment._user.lastName}}</div>
+                <div class="dateAuthored">{{comment.createdAt | date:'fullDate'}}</div>
+              </div>
+              <div class="card-body">
+                <!-- <div class="forum-content-type forum-content-type-comment float-left"></div> -->
+                <div class="forum-content-type float-left">C</div>
+                {{comment.content}}
+              </div>  
+            </div>
+          </div>
+        </div>  
+          <!-- <div class="card new-comment-card">
+            <div class="card-body">
+              <form>
+                <div class="form-group">
+                  <input class="form-control" type="text" name="name" value="{{user['name']}}" [(ngModel)]="newComment.name" placeholder="{{user['name']}}">
+                  <input class="form-control" type="textarea" name="content" [(ngModel)]="newComment.content" placeholder="Comment">
+                  <input class="btn btn-default" type="submit" value="Post comment" (click)="createComment(answer._id)">
+                </div>
+              </form>
+            </div>
+          </div> -->
+      </div>
+    </div>
+  </section>
+</div>

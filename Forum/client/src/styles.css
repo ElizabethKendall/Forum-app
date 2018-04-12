@@ -1,1 +1,93 @@
 /* You can add global styles to this file, and also import other style files */
+/* *{
+    outline: red 1px solid;
+} */
+
+h1 h2 h3 h4 h5 h6 form{
+    display: block;
+}
+
+.forum-top{
+    height: 36px;;
+}
+
+.forum-top-left{
+    width: 49%;
+    height: 100%;
+}
+
+.forum-top-right{
+    width: 49%;
+    height: 100%;
+}
+
+.forum-top-left a{
+    line-height: 36px;
+}
+
+.card{
+    width: 100%;
+    margin-top: 1rem;
+}
+
+.card-authorship {
+    padding-top: 0.5rem;
+    padding-bottom: 0;
+    padding-left: 5rem;
+}
+
+.card-body {
+    margin-top: 0px;
+    padding-top: 0.5rem !important;
+}
+
+.forum-content-type{
+    width:50px; 
+    height:50px; 
+    text-align:center; 
+    line-height:50px; 
+    font-size:30px; 
+    margin-right:10px;
+    background: whitesmoke;
+    color: black;
+    border-radius: 50%;
+}
+
+.forum-content-type-comment{
+    background: transparent;
+}
+
+.author{
+    display: inline;
+    margin-right: 10px;
+}
+.dateAuthored{
+    display: inline;
+    color: darkgray;
+}
+
+.card-actions{
+    float: right;
+    margin-right: 1rem;
+}
+.comments-container{
+    width: 80%;
+}
+
+.question-top{
+    height: 36px;;
+}
+
+.question-top-left{
+    width: 49%;
+    height: 100%;
+}
+
+.question-top-right{
+    width: 49%;
+    height: 100%;
+}
+
+.question-top-left a{
+    line-height: 36px;
+}

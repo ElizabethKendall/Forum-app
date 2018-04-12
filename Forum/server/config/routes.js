@@ -7,16 +7,18 @@ const mongoose = require("mongoose"),
     Answers = require('../controllers/Answers.js'),
     Comment = mongoose.model('Comment'),
     Comments = require('../controllers/Comments.js');
-
+    path = require('path');
+    
 module.exports = function (app) {
     app.get("/", Users.root);
+
     app.get("/users", Users.usersGET);
     app.post("/users", Users.usersPOST);
     app.get("/users/:id", Users.userByIdGET);
     app.delete("/users/:id", Users.userDelete);
     app.put("/users/:id", Users.userByIdUpdate);
 
-    app.get("/questions", Questions.questionsGET);
+    app.get("/questions", Questions.questionsGET);
     app.post("/questions", Questions.questionsPOST);
     app.get("/questions/:id", Questions.questionByIdGET);
     app.delete("/questions/:id", Questions.questionDelete);
@@ -33,4 +35,8 @@ module.exports = function (app) {
     app.get("/comments/:id", Comments.commentByIdGET);
     app.delete("/comments/:id", Comments.commentDelete);
     app.put("/comments/:id", Comments.commentByIdUpdate);
+
+    app.all('*', (req,res,next) => {
+        res.sendFile(path.resolve('./client/dist/index.html'));
+    });
 }
