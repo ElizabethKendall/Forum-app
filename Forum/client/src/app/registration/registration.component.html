@@ -12,11 +12,11 @@
 	<fieldset>
 		<h1>Register</h1>
 		<form (submit)=register()>
-			<input type="text" name="fname" placeholder="First Name" [(ngModel)]="user.firstName">
-			<input type="text" name="lname" placeholder="Last Name" [(ngModel)]="user.lastName">
+			<input type="text" name="firstName" placeholder="First Name" [(ngModel)]="user.firstName">
+			<input type="text" name="lastName" placeholder="Last Name" [(ngModel)]="user.lastName">
 			<input type="text" name="email" placeholder="Email" [(ngModel)]="user.email">
-			<input type="text" name="pw" placeholder="Password" [(ngModel)]="user.password">
-			<input type="text" name="cpw" placeholder="Confirm Password">
+			<input type="text" name="password" placeholder="Password" [(ngModel)]="user.password">
+			<input type="text" name="confirmPassword" placeholder="Confirm Password">
 			<input type="submit" value="Register">
 		</form>
 	</fieldset>

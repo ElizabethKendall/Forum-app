@@ -29,7 +29,6 @@ module.exports = {
                     return;
                 }
                 user.password = hash;
-                user.save();
             });
         });
         user.save(function(err){
