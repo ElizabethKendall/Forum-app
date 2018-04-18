@@ -4,7 +4,7 @@
       <div class="form-item create-input">
         <input class="form-control" type="text" name="content" placeholder="Question" minlength="1" maxlength="140" required [(ngModel)]="question.content" #questionContent="ngModel"/>
       </div>
-      <input *ngIf='!questionContent.errors' type="submit" value="Post" (click)="createQuestion()" class="btn btn-primary">
+      <input *ngIf='!questionContent.errors' type="submit" value="Post" (click)="createQuestion()" class="btn btn-outline-success btn-child-forms">
     </div>
   </form>
   <div class="error-msg" *ngIf='questionContent.errors && questionContent.dirty'>

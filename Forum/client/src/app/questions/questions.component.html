@@ -6,7 +6,6 @@
           <a href="/forum">Back to Forum</a>
         </div>
         <div class="float-right question-top-right">
-
         </div>
       </div>
     </div>
@@ -18,12 +17,21 @@
           <div class="card-authorship">
             <div class="author">{{question._user.firstName}} {{question._user.lastName}}</div>
             <div class="dateAuthored">{{question.createdAt | date:'fullDate'}}</div>
-            <div class="card-actions"><a class="text-warning" href="/answers/new/{{question._id}}">Post Answer</a></div>
+            <div class="card-actions"><a class="text-warning" (click)="togglePostNewAnswer()" id="answers-new-anchor">Post New Answer</a></div>
+            <!-- href="/answer/create/{{question._id}}" -->
           </div>
           <div class="card-body">
             <div class="forum-content-type float-left">Q</div>
             {{question.content}}
-          </div> 
+          </div>    
+          <div *ngIf="postNewAnswer" id="answers-new-form" class="answers-new-form">
+            <form [formGroup]="addAnswerForm">
+              <app-answers-new [questionsAddAnswerForm]="addAnswerForm.get('answer')" [questionsQuestionId]=questionId (updateQuestionEvent)="receiveUpdatedQuestion($event)"></app-answers-new>
+            </form>
+            <!-- {{ userId }} <br>
+            {{ questionId }} <br>
+            {{ addAnswerForm.value | json }} -->
+          </div>      
         </div>
       </div>
     </div>
@@ -35,7 +43,7 @@
           <div class="card-authorship">
             <div class="author">{{answer._user.firstName}} {{answer._user.lastName}}</div>
             <div class="dateAuthored">{{answer.createdAt | date:'fullDate'}}</div>
-            <div class="card-actions"><a class="text-warning" href="/comments/new/{{answer._id}}">Post Comment</a></div>
+            <div class="card-actions"><a class="text-warning" href="/comment/create/{{answer._id}}">Post New Comment</a></div>
           </div>
           <div class="card-body">
             <div class="forum-content-type float-left">A</div>

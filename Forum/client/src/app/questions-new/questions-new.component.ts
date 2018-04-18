@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { MainService } from './../main.service';
 import { AppRoutingModule } from './../app-routing.module';
-import { ActivatedRoute, Params, Router } from '@angular/router';
+import { ActivatedRoute, Params, Router, NavigationEnd } from '@angular/router';
 import { ForumComponent } from '../forum/forum.component';
 
 @Component({
@@ -9,19 +9,37 @@ import { ForumComponent } from '../forum/forum.component';
   templateUrl: './questions-new.component.html',
   styleUrls: ['./questions-new.component.css']
 })
-export class QuestionsNewComponent implements OnInit {
+export class QuestionsNewComponent implements OnInit, OnDestroy {
   userId: String;
   user: any;
   question: any;
-  constructor(private _mainService: MainService, private _router: Router, private _forumComponent: ForumComponent) {}
+  navigationSubscription;
+  constructor(private _mainService: MainService, private _router: Router, private _forumComponent: ForumComponent) {
+    this.navigationSubscription = this._router.events.subscribe((e: any) => {
+      // If it is a NavigationEnd event re-initalise the component
+      if (e instanceof NavigationEnd) {
+        console.log('in an instance of NavigationEnd');
+        this.ngOnInit();
+      }
+    });
+  }
 
   ngOnInit() {
     this.setUserId();
     this.setUser();
     this.setQuestion();
     this.userByIdGET();
-    console.log(this.user);
   }
+
+  ngOnDestroy() {
+    // avoid memory leaks here by cleaning up after ourselves. If we
+    // don't then we will continue to run our initialiseInvites()
+    // method on every navigationEnd event.
+    if (this.navigationSubscription) {
+      this.navigationSubscription.unsubscribe();
+    }
+  }
+
   // TODO: this will have to be edited to pull logged in user's id from session
   setUserId() {
     this.userId = '5acea435001a3839e89eb686';

@@ -1,0 +1,15 @@
+<div class="container">
+  <form>
+    <div class="form-group" [formGroup]="questionsAddAnswerForm">
+      <div class="form-item create-input">
+        <!-- <input class="form-control" type="text" name="content" placeholder="Answer" minlength="1" maxlength="140" required [(ngModel)]="answer.content" #answerContent="ngModel"/> -->
+        <input class="form-control" type="text" id="input-content" name="content" placeholder="Answer" minlength="1" maxlength="140" required formControlName="content"/>
+      </div>
+      <!-- <input *ngIf='!answerContent.errors' type="submit" value="Post" (click)="createAnswer()" class="btn btn-primary"> -->
+      <input type="submit" value="Post" (click)="createAnswer()" class="btn btn-outline-success btn-child-forms">
+    </div>
+  </form>
+  <!-- <div class="error-msg" *ngIf='answerContent.errors && answerContent.dirty'>
+      <p class="text-warning">Answer must be 1 to 140 characters long.</p>
+  </div> -->
+</div>

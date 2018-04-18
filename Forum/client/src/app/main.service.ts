@@ -30,4 +30,14 @@ export class MainService {
   questionByIdGET(questionId, cb) {
     this._http.get('/questions/' + questionId).subscribe( (res) => { cb(res); });
   }
+
+  createAnswer(answer, cb) {
+    this._http.post('/answers', answer).subscribe( (res) => { cb(res); });
+  }
+
+  questionByIdUpdate(question, cb) {
+    const uri = '/questions/' + question._id;
+    this._http.put(uri, question).subscribe( (res) => { cb(res); });
+  }
+
 }

@@ -33,7 +33,7 @@ module.exports = {
     "userByIdGET":(req, res) => {
         User.find({_id:req.params.id}, function(err, user){
             if(err){
-                res.json({message:"Error", errors: user.errors});
+                res.json({message:"Error", errors: err});
             }
             else{
                 res.json({message:"Success", data:user});
