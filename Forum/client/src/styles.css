@@ -39,6 +39,7 @@ h1 h2 h3 h4 h5 h6 form{
 .card-body {
     margin-top: 0px;
     padding-top: 0.5rem !important;
+    padding-bottom: 0rem !important;
 }
 
 .forum-content-type{
@@ -94,4 +95,9 @@ h1 h2 h3 h4 h5 h6 form{
 
 .btn-child-forms{
     margin-top: 1rem;
+}
+
+.card-actions-lower{
+    margin-bottom: .75rem;
+    text-align: right;
 }

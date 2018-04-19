@@ -24,6 +24,7 @@
             <div class="forum-content-type float-left">Q</div>
               {{question.content}}
           </div>    
+          <div class="card-actions card-actions-lower float-right"><a class="text-primary" (click)="questionDelete(question._id)">Delete Question</a></div>
           <div *ngIf="postNewAnswer" id="answers-new-form" class="answers-new-form">
             <form [formGroup]="addAnswerForm">
               <app-answers-new [questionsAddAnswerForm]="addAnswerForm.get('answer')" [questionsQuestionId]=questionId (updateQuestionEvent)="receiveUpdatedQuestion($event)"></app-answers-new>
@@ -49,16 +50,17 @@
           <div class="card-body">
             <div class="forum-content-type float-left">A</div>
               {{answer.content}}
-            </div>        
+            </div> 
+            <div class="card-actions card-actions-lower float-right"><a class="text-primary" (click)="deleteAnswer(answer._id)">Delete Answer</a></div>          
             <div *ngIf="postNewComment && postNewCommentAnswerId===answer._id" id="comments-new-form" class="comments-new-form">
               <form [formGroup]="addCommentForm">
-                <app-comments-new [questionsAddCommentForm]="addCommentForm.get('comment')" [questionsQuestionId]=questionId [questionsAnswerId]=answer._id (updateQuestionEvent)="receiveUpdatedQuestion($event)"></app-comments-new>
+                <app-comments-new [questionsAddCommentForm]="addCommentForm.get('comment')" [questionsQuestionId]=questionId [questionsAnswerId]=answer._id [questionsUserId]=userId (updateQuestionEvent)="receiveUpdatedQuestion($event)"></app-comments-new>
               </form>
               <!-- {{ userId }} <br>
               {{ questionId }} <br>
               {{ answer._id }} <br>
               {{ addCommentForm.value | json }} -->
-            </div>    
+            </div> 
         </div>
         <div class="container comments-container">
           <div class="row" *ngFor='let comment of answer._comments'>
@@ -72,6 +74,7 @@
                 <div class="forum-content-type float-left">C</div>
                 {{comment.content}}
               </div>  
+              <div class="card-actions card-actions-lower float-right"><a class="text-primary" (click)="deleteComment(comment._id)">Delete Comment</a></div> 
             </div>
           </div>
         </div>  

@@ -143,14 +143,15 @@ export class QuestionsComponent implements OnInit {
       // console.log('in 4');
       window.alert('UNKNOWN ERROR WITH TOGGLE POST NEW COMMENT');
     }
+    // TODO: Need to emit to child comment form something to tell it to reset.
   }
 
   updateCommentsNewFormText(answerId) {
-    console.log('in updateCommentsNewFormText');
+    // console.log('in updateCommentsNewFormText');
     const elementId = 'comments-new-anchor-' + answerId;
-    console.log('elementId', elementId);
+    // console.log('elementId', elementId);
     const htmlElement = document.getElementById(elementId);
-    console.log('htmlElement', htmlElement);
+    // console.log('htmlElement', htmlElement);
     // if (!this.postNewComment) {
     //   htmlElement.textContent = 'Post New Comment';
     // } else {
@@ -162,5 +163,44 @@ export class QuestionsComponent implements OnInit {
       htmlElement.textContent = 'Post New Comment';
     }
     // this.ngOnInit();
+  }
+
+  questionDelete(questionId) {
+    this._mainService.questionDelete(questionId, (res) => {
+      if (res.message !== 'Success') {
+        this.showResErrors(res);
+      } else {
+        this.questionRemoveFromUser(questionId);
+        this._router.navigate(['/forum']);
+      }
+    } );
+  }
+  questionRemoveFromUser(questionId) {
+    const idx = this.user['_questions'].indexOf(questionId);
+    if (idx > -1) {
+      this.user['_questions'].splice(idx, 1);
+      this.updateUser();
+    }
+  }
+  updateUser() {
+    this._mainService.userByIdUpdate( this.user, (res) => {
+      if ( res['message'] !== 'Success' ) {
+        this.showResErrors(res);
+      } else {
+        console.log('Success');
+        this.userByIdGET();
+      }
+    });
+  }
+  userByIdGET() {
+    this._mainService.userByIdGET( this.userId, (res) => {
+      console.log('forum / userByIdGET');
+      if ( res['message'] !== 'Success' ) {
+        this.showResErrors(res);
+      } else {
+        this.user = res['data'][0];
+        console.log(this.user);
+      }
+    });
   }
 }
