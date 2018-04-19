@@ -14,6 +14,7 @@ import { QuestionsNewComponent } from './questions-new/questions-new.component';
 import { QuestionsComponent } from './questions/questions.component';
 import { FilterForumTablePipe } from './filter-forum-table.pipe';
 import { AnswersNewComponent } from './answers-new/answers-new.component';
+import { CommentsNewComponent } from './comments-new/comments-new.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,8 @@ import { AnswersNewComponent } from './answers-new/answers-new.component';
     QuestionsNewComponent,
     QuestionsComponent,
     FilterForumTablePipe,
-    AnswersNewComponent
+    AnswersNewComponent,
+    CommentsNewComponent
   ],
   imports: [  // register all modules with app
     AppRoutingModule,

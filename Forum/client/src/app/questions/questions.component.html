@@ -22,7 +22,7 @@
           </div>
           <div class="card-body">
             <div class="forum-content-type float-left">Q</div>
-            {{question.content}}
+              {{question.content}}
           </div>    
           <div *ngIf="postNewAnswer" id="answers-new-form" class="answers-new-form">
             <form [formGroup]="addAnswerForm">
@@ -43,12 +43,22 @@
           <div class="card-authorship">
             <div class="author">{{answer._user.firstName}} {{answer._user.lastName}}</div>
             <div class="dateAuthored">{{answer.createdAt | date:'fullDate'}}</div>
-            <div class="card-actions"><a class="text-warning" href="/comment/create/{{answer._id}}">Post New Comment</a></div>
+            <!-- <div class="card-actions"><a class="text-warning" href="/comment/create/{{answer._id}}">Post New Comment</a></div> -->
+            <div class="card-actions"><a class="text-warning" (click)="togglePostNewComment(answer._id)" id="comments-new-anchor-{{answer._id}}">Post New Comment</a></div>
           </div>
           <div class="card-body">
             <div class="forum-content-type float-left">A</div>
-            {{answer.content}}
-          </div>          
+              {{answer.content}}
+            </div>        
+            <div *ngIf="postNewComment && postNewCommentAnswerId===answer._id" id="comments-new-form" class="comments-new-form">
+              <form [formGroup]="addCommentForm">
+                <app-comments-new [questionsAddCommentForm]="addCommentForm.get('comment')" [questionsQuestionId]=questionId [questionsAnswerId]=answer._id (updateQuestionEvent)="receiveUpdatedQuestion($event)"></app-comments-new>
+              </form>
+              <!-- {{ userId }} <br>
+              {{ questionId }} <br>
+              {{ answer._id }} <br>
+              {{ addCommentForm.value | json }} -->
+            </div>    
         </div>
         <div class="container comments-container">
           <div class="row" *ngFor='let comment of answer._comments'>
