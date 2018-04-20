@@ -9,18 +9,22 @@
 </head>
 
 <body>
-	<fieldset>
-		<h1>Register</h1>
-		<form (submit)=register()>
-			<input type="text" name="firstName" placeholder="First Name" [(ngModel)]="user.firstName">
-			<input type="text" name="lastName" placeholder="Last Name" [(ngModel)]="user.lastName">
-			<input type="text" name="email" placeholder="Email" [(ngModel)]="user.email">
-			<input type="text" name="password" placeholder="Password" [(ngModel)]="user.password">
-			<input type="text" name="confirmPassword" placeholder="Confirm Password">
-			<input type="submit" value="Register">
-		</form>
-	</fieldset>
-	<p>Already a member? <a [routerLink]="['/login']">Login</a></p>
+	<div class="container" id="main">
+		<div class="card">
+			<h1 class="text-warning">Register a New Account</h1>
+			<form (submit)=register()>
+				<div class="form-group">
+					<input class="form-control" type="text" name="firstName" placeholder="First Name" [(ngModel)]="user.firstName">
+					<input class="form-control" type="text" name="lastName" placeholder="Last Name" [(ngModel)]="user.lastName">
+					<input class="form-control" type="text" name="email" placeholder="Email" [(ngModel)]="user.email">
+					<input class="form-control" type="password" name="password" placeholder="Password" [(ngModel)]="user.password">
+					<input class="form-control" type="password" name="confirmPassword" placeholder="Confirm Password">
+					<input class="btn btn-outline-success" type="submit" value="Register">
+				</div>
+			</form>
+		</div>
+		<p>Already a member? <a [routerLink]="['/login']">Login</a></p>
+	</div>
 </body>
 
 </html>

@@ -20,24 +20,22 @@ module.exports = {
     },
 
     "usersPOST":(req, res) => {
-        console.log('in controller ',req.body);
         var user = new User(req.body);
         bcrypt.genSalt(10, (err, salt) => {
             bcrypt.hash(user.password, salt, (err, hash) => {
                 if(err){
-                    console.log(err);
-                    return;
+                    res.json({message:"Error", errors: err});
                 }
                 user.password = hash;
+                user.save(function (err) {
+                    if (err) {
+                        res.json({ message: "Error", errors: user.errors });
+                    }
+                    else {
+                        res.json({ message: "Success", data: user });
+                    }
+                });
             });
-        });
-        user.save(function(err){
-            if(err){
-                res.json({message:"Error", errors: user.errors});
-            }
-            else{
-                res.json({message:"Success", data:user});
-            }           
         });
     }, 
 
@@ -70,6 +68,24 @@ module.exports = {
             }
             else{
                 res.json({message:"Success", data:user});
+            }
+        });
+    },
+    
+    "login":(req,res) => {
+        console.log('in controller', req.body);
+        User.find({email: req.body.email}, function(err, user){
+            if (err){
+                res.json({message: "Find Error", errors: user.errors});
+            }
+            else{
+                bcrypt.compare(req.body.password, user[0].password, function(err, result){
+                    if(err){
+                        res.json({message: "Compare Error", error: err});
+                    } else {
+                        res.json({message: "Success", data: result});
+                    }
+                });
             }
         });
     }

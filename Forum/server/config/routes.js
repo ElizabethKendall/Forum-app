@@ -17,6 +17,8 @@ module.exports = function (app) {
     app.delete("/users/:id", Users.userDelete);
     app.put("/users/:id", Users.userByIdUpdate);
 
+    app.post("/login", Users.login);
+
     app.get("/questions", Questions.questionsGET);
     app.post("/questions", Questions.questionsPOST);
     app.get("/questions/:id", Questions.questionByIdGET);
@@ -34,6 +36,8 @@ module.exports = function (app) {
     app.get("/comments/:id", Comments.commentByIdGET);
     app.delete("/comments/:id", Comments.commentDelete);
     app.put("/comments/:id", Comments.commentByIdUpdate);
+
+    // logout route here
 
     app.get('*', function(req,res){
         res.sendFile(path.resolve('./client/dist/index.html'));

@@ -17,7 +17,10 @@ export class MainService {
 
 	login(user, cb){
 		console.log('service ',user);
-		// this._http.post() not sure what to do here.
+		this._http.post('/login', user).subscribe((res) => {
+			console.log('back in service');
+			cb(res);
+		})
 	}
 
 }
