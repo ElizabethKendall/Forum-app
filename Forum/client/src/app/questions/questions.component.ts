@@ -34,16 +34,28 @@ export class QuestionsComponent implements OnInit {
     });
   }
   receiveUpdatedQuestion($event) {
-    console.log('in receiveUpdatedQuestion', $event);
-    this.togglePostNewAnswer();
-    this.ngOnInit();
+    console.log('in receiveUpdatedQuestion');
+    console.log('$event', $event);
+    console.log('$event.constructor.name', $event.constructor.name);
+    if ($event === 'Answer') {
+      this.togglePostNewAnswer();
+      this.ngOnInit();
+    } else {
+      this.togglePostNewComment($event['_id']);
+      this.ngOnInit();
+    }
+    // } else {
+    //   alert('ERROR IN receiveUpdatedQuestion');
+    // }
   }
   ngOnInit() {
+    console.log('in ngOnInit');
     this.setQuestionId();
     this.setQuestion();
     this.setUserId();
     this.setUser();
     this.questionByIdGET();
+    this.userByIdGET();
     // this.setQuestionIdAnswersNewComponent();
     // this.setUserIdAnswersNewComponent();
   }
@@ -99,7 +111,7 @@ export class QuestionsComponent implements OnInit {
         this.showResErrors(res);
       } else {
         this.question = res['data'][0];
-        // console.log(this.question);
+        // console.log('questionByIdGET this.question:', this.question);
       }
     });
   }
@@ -179,10 +191,11 @@ export class QuestionsComponent implements OnInit {
     const idx = this.user['_questions'].indexOf(questionId);
     if (idx > -1) {
       this.user['_questions'].splice(idx, 1);
-      this.updateUser();
+      this.userUpdate();
     }
   }
-  updateUser() {
+  userUpdate() {
+    console.log('in userUpdate');
     this._mainService.userByIdUpdate( this.user, (res) => {
       if ( res['message'] !== 'Success' ) {
         this.showResErrors(res);
@@ -200,6 +213,137 @@ export class QuestionsComponent implements OnInit {
       } else {
         this.user = res['data'][0];
         console.log(this.user);
+      }
+    });
+  }
+  answerDelete(answerId) {
+    this._mainService.answerDelete(answerId, (res) => {
+      if (res.message !== 'Success') {
+        console.log('in answerDelete err');
+        this.showResErrors(res);
+      } else {
+        console.log('in answerDelete !err');
+        this.answerRemoveFromUser(answerId);
+        this.answerRemoveFromQuestion(answerId);
+        // this._router.navigate(['/forum']);
+      }
+    } );
+  }
+  answerRemoveFromUser(answerId) {
+    // console.log('in answerRemoveFromUser');
+    // console.log('UNSPLICED this.user[\'_answers\']', this.user['_answers']);
+    const idx = this.user['_answers'].indexOf(answerId);
+    if (idx > -1) {
+      // console.log('found idx:', idx);
+      this.user['_answers'].splice(idx, 1);
+      // console.log('SPLICED this.user[\'_answers\']', this.user['_answers']);
+      this.userUpdate();
+    } else {
+      // console.log('didn\'t find idx:', idx);
+      // console.log(answerId);
+    }
+  }
+  answerRemoveFromQuestion(answerId) {
+    // console.log('in answerRemoveFromQuestion');
+    // console.log('UNSPLICED this.question[\'_answer\']', this.question['_answer']);
+    // loop through each item in this.question['_answer'] with idx
+      // if item._id === answerId
+        // set itemId = idx
+        // use splice to remove the item from _answer
+        // call questionUpdate()
+        // break
+    for (let idx = 0; idx < this.question['_answer'].length; idx++) {
+      const item = this.question['_answer'][idx];
+      let itemIdx = -1;
+      if (item._id === answerId) {
+        itemIdx = idx;
+        // console.log('found itemIdx:', itemIdx);
+        this.question['_answer'].splice(itemIdx, 1);
+        // console.log('SPLICED this.question[\'_answer\']', this.question['_answer']);
+        this.questionUpdate();
+      } else {
+        // console.log('didn\'t find idx:', idx);
+        // console.log(answerId);
+      }
+    }
+  }
+
+  commentDelete(commentId, answer) {
+    this._mainService.commentDelete(commentId, (res) => {
+      if (res.message !== 'Success') {
+        console.log('in commentDelete err');
+        this.showResErrors(res);
+      } else {
+        console.log('in commentDelete !err');
+        this.commentRemoveFromUser(commentId);
+        this.commentRemoveFromAnswer(commentId, answer);
+        // this._router.navigate(['/forum']);
+      }
+    } );
+  }
+  commentRemoveFromUser(commentId) {
+    console.log('in commentRemoveFromUser');
+    console.log('UNSPLICED this.user[\'_comments\']', this.user['_comments']);
+    const idx = this.user['_comments'].indexOf(commentId);
+    if (idx > -1) {
+      console.log('found idx:', idx);
+      this.user['_comments'].splice(idx, 1);
+      console.log('SPLICED this.user[\'_comments\']', this.user['_comments']);
+      this.userUpdate();
+    } else {
+      console.log('didn\'t find idx:', idx);
+      console.log(commentId);
+    }
+  }
+  commentRemoveFromAnswer(commentId, answer) {
+    console.log('in commentRemoveFromAnswer');
+    console.log('UNSPLICED answer[\'_comments\']', answer['_comments']);
+    for (let idx = 0; idx < answer['_comments'].length; idx++) {
+      const item = answer['_comments'][idx];
+      let itemIdx = -1;
+      if (item._id === commentId) {
+        itemIdx = idx;
+        console.log('found itemIdx:', itemIdx);
+        answer['_comments'].splice(itemIdx, 1);
+        console.log('SPLICED answer[\'_comments\']', answer['_comments']);
+        this.answerUpdate(answer);
+        // TODO: If doesn't update the page, then run getQuestionById();
+      } else {
+        console.log('didn\'t find idx:', idx);
+        console.log(commentId);
+      }
+    }
+  }
+  questionUpdate() {
+    console.log('in questionUpdate');
+    this._mainService.questionByIdUpdate( this.question, (res) => {
+      if ( res['message'] !== 'Success' ) {
+        this.showResErrors(res);
+      } else {
+        console.log('Success');
+        this.questionByIdGET();
+      }
+    });
+  }
+  answerUpdate(answer) {
+    console.log('in answerUpdate');
+    this._mainService.answerByIdUpdate( answer, (res) => {
+      if ( res['message'] !== 'Success' ) {
+        this.showResErrors(res);
+      } else {
+        console.log('Success');
+        this.answerByIdGET(answer);
+      }
+    });
+  }
+  answerByIdGET(answer) {
+    this._mainService.answerByIdGET( answer._id, (res) => {
+      console.log('forum / answerByIdGET');
+      if ( res['message'] !== 'Success' ) {
+        this.showResErrors(res);
+      } else {
+        // answer = res['data'][0];
+        console.log(answer);
       }
     });
   }

@@ -67,19 +67,21 @@ export class CommentsNewComponent implements OnInit {
         // console.log('Success');
         const savedComment = res['data'];
         console.log('Proceeding to addCommentToUser!');
+        this.comment = savedComment;
+        console.log('savedComment', savedComment);
         // TODO: set the user and answer from the database with promises.
         this.addCommentToUser(savedComment);
         this.addCommentToAnswer(savedComment);
         this.clearAddCommentForm();
         this.reloadQuestionsComponent();
-        console.log('question: ', this.question);
-        console.log('answer: ', this.answer);
-        console.log('user: ', this.user);
+        // console.log('question: ', this.question);
+        // console.log('answer: ', this.answer);
+        // console.log('user: ', this.user);
       }
     });
   }
   reloadQuestionsComponent() {
-    this.updateQuestionEvent.emit('Success');
+    this.updateQuestionEvent.emit(this.comment);
   }
   clearAddCommentForm() {
     this.questionsAddCommentForm.reset();

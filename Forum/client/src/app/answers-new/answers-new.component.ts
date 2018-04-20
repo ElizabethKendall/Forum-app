@@ -220,7 +220,7 @@ export class AnswersNewComponent implements OnInit {
     });
   }
   reloadQuestionsComponent() {
-    this.updateQuestionEvent.emit('Success');
+    this.updateQuestionEvent.emit('Answer');
   }
   clearAddAnswerForm() {
     this.questionsAddAnswerForm.reset();

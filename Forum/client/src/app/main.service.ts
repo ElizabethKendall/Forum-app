@@ -62,4 +62,12 @@ export class MainService {
     this._http.post('/comments', comment).subscribe( (res) => { cb(res); });
   }
 
+  answerDelete(answerId, cb) {
+    this._http.delete('/answers/' + answerId).subscribe( (res) => { cb(res); });
+  }
+
+  commentDelete(commentId, cb) {
+    this._http.delete('/comments/' + commentId).subscribe( (res) => { cb(res); });
+  }
+
 }
