@@ -3,7 +3,8 @@
     <div class="form-group" [formGroup]="questionsAddCommentForm">
       <div class="form-item create-input">
         <!-- <input class="form-control" type="text" name="content" placeholder="Comment" minlength="1" maxlength="140" required [(ngModel)]="comment.content" #commentContent="ngModel"/> -->
-        <input class="form-control" type="text" id="input-content" name="content" placeholder="Comment" minlength="1" maxlength="140" required formControlName="content"/>
+        <!-- <input class="form-control" type="text" id="input-content" name="content" placeholder="Comment" minlength="1" maxlength="140" required formControlName="content"/> -->
+        <textarea class="form-control" type="text" id="input-content" name="content" placeholder="Comment" minlength="1" maxlength="140" required formControlName="content"></textarea>
       </div>
       <!-- <input *ngIf='!commentContent.errors' type="submit" value="Post" (click)="createComment()" class="btn btn-primary"> -->
       <input type="submit" value="Post" (click)="postComment()" class="btn btn-outline-success btn-child-forms">

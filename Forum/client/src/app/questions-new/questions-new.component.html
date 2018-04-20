@@ -2,7 +2,8 @@
   <form>
     <div class="form-group">
       <div class="form-item create-input">
-        <input class="form-control" type="text" name="content" placeholder="Question" minlength="1" maxlength="140" required [(ngModel)]="question.content" #questionContent="ngModel"/>
+        <!-- <input class="form-control" type="text" name="content" placeholder="Question" minlength="1" maxlength="140" required [(ngModel)]="question.content" #questionContent="ngModel"/> -->
+        <textarea class="form-control" type="text" name="content" placeholder="Question" minlength="1" maxlength="140" required [(ngModel)]="question.content" #questionContent="ngModel"></textarea>
       </div>
       <input *ngIf='!questionContent.errors' type="submit" value="Post" (click)="createQuestion()" class="btn btn-outline-success btn-child-forms">
     </div>

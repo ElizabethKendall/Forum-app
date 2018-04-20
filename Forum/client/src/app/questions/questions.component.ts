@@ -11,6 +11,8 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
   styleUrls: ['./questions.component.css']
 })
 export class QuestionsComponent implements OnInit {
+  userXpOpts: Object;
+  userXp: String;
   userId: String;
   user: Object;
   questionId: String;
@@ -32,6 +34,10 @@ export class QuestionsComponent implements OnInit {
         content: ['', Validators.required]
       })
     });
+    this.userXp = '1';
+    this.userXpOpts = [ [1, 'GUI 01: Add answers and comments inline.'],
+                        [2, 'GUI 02: Add answers or comments at bottom of screen']
+                      ];
   }
   receiveUpdatedQuestion($event) {
     console.log('in receiveUpdatedQuestion');
@@ -169,11 +175,14 @@ export class QuestionsComponent implements OnInit {
     // } else {
     //   htmlElement.textContent = 'Cancel New Comment';
     // }
-    if (htmlElement.textContent === 'Post New Comment') {
-      htmlElement.textContent = 'Cancel New Comment';
-    } else {
-      htmlElement.textContent = 'Post New Comment';
+    if (htmlElement) {
+      if (htmlElement.textContent === 'Post New Comment') {
+        htmlElement.textContent = 'Cancel New Comment';
+      } else {
+        htmlElement.textContent = 'Post New Comment';
+      }
     }
+
     // this.ngOnInit();
   }
 
