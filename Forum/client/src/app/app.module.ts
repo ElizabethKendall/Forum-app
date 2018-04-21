@@ -11,6 +11,7 @@ import { RegistrationComponent } from './registration/registration.component';
 import { MainService } from './main.service';
 import { FooterComponent } from './footer/footer.component';
 import { NavComponent } from './nav/nav.component';
+import { TempComponent } from './temp/temp.component';
 
 
 @NgModule({
@@ -19,7 +20,8 @@ import { NavComponent } from './nav/nav.component';
     LoginComponent,
     RegistrationComponent,
     FooterComponent,
-    NavComponent
+    NavComponent,
+    TempComponent
   ],
   imports: [
     BrowserModule,

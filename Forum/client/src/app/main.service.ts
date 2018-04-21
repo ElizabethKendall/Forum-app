@@ -5,21 +5,30 @@ import { BehaviorSubject } from 'rxjs';
 @Injectable()
 export class MainService {
 
-	constructor(private _http: HttpClient) {}
+	loggedUser: BehaviorSubject<object>;
+
+	constructor(private _http: HttpClient) {
+		this.loggedUser = new BehaviorSubject({unlogged: true});
+	}
 
 	register(user, cb){
-		console.log('service ',user);
 		this._http.post('/users', user).subscribe((res) => {
-			console.log('back in service');
 			cb(res);
 		});
 	}
 
 	login(user, cb){
-		console.log('service ',user);
 		this._http.post('/login', user).subscribe((res) => {
-			console.log('back in service');
 			cb(res);
+		})
+	}
+
+	checkLoggedUser(cb){
+		this._http.get('/checkLoggedUser').subscribe((res) => {
+			if(res['message'] == "Logged"){
+				this.loggedUser.next(res['user']);
+			}
+			cb();
 		})
 	}
 

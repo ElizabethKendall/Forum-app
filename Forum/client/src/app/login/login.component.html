@@ -12,13 +12,47 @@
 			<h1 class="text-warning">Login With an Existing Account</h1>
 			<form (submit)=login()>
 				<div class="form-group">
-					<input class="form-control" type="text" name="email" placeholder="Email" [(ngModel)]="user.email">
-					<input class="form-control" type="password" name="password" placeholder="Password" [(ngModel)]="user.password">
-					<input class="btn btn-outline-success" type="submit" value="Login">
+					<input 
+						class="form-control" 
+						type="text" 
+						name="email" 
+						placeholder="Email" 
+						[(ngModel)]="user.email"
+						#email="ngModel" 
+						required 
+						pattern="^[a-zA-Z0-9.-_]+@[a-zA-Z]+\.[a-zA-Z]{2,4}$"
+					>
+					<p *ngIf='email.dirty && email.invalid'>
+						<span *ngIf='email.errors.required'>Required.</span>
+						<span *ngIf='email.errors.pattern'>Invalid. Please use at least 6 valid characters and correct email format.</span>
+					</p>
+
+					<input 
+						class="form-control" 
+						type="password" 
+						name="password" 
+						placeholder="Password" 
+						[(ngModel)]="user.password"
+						#pw="ngModel" 
+						required 
+						pattern="^[a-zA-Z0-9.-_!@#%*?,~]{8,}"
+					>
+					<p *ngIf='pw.dirty && pw.invalid'>
+						<span *ngIf='pw.errors.required'>Required.</span>
+						<span *ngIf='pw.errors.pattern'>Invalid. Please use at least 8 valid characters.</span>
+					</p>
+					<p id="invalepw"></p>
+
+					<input 
+						class="btn btn-outline-success" 
+						type="submit" 
+						value="Login"
+						*ngIf='email.valid && pw.valid'
+					>
 				</div>
 			</form>
 		</div>
-		<p>New to this site? <a [routerLink]="['/register']">Register</a></p>
+		<p id="linker">New to this site? <a [routerLink]="['/register']">Register</a></p>
 	</div>
 </body>
 </html>

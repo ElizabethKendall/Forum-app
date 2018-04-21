@@ -14,6 +14,7 @@
     "font-awesome": "^4.7.0",
     "fs": "^0.0.1-security",
     "mongoose": "^5.0.12",
+    "mongoose-validate": "git://github.com/RGBboy/mongoose-validate.git",
     "path": "^0.12.7"
   },
   "devDependencies": {},
