@@ -38,7 +38,7 @@ module.exports = {
                                 res.json({ message: "Model Error", errors: err });
                             } else {
                                 res.json({ message: "Success", data: user });
-                                req.session.user = user[0];
+                                req.session.user = user;
                                 req.session.save();
                             }
                         });
