@@ -1,0 +1,38 @@
+<div class="container">
+  <div *ngIf="postNewQuestion" id="questions-new-form" class="questions-new-form">
+      <app-questions-new></app-questions-new>
+  </div>
+  <div class="container forum-top">
+    <!-- &nbsp;     -->
+    <div class="float-left forum-top-left">
+      <a *ngIf="!postNewQuestion" class="create-question text-warning" (click)=togglePostNewQuestion() id="questions-new-anchor">Post New Question</a> 
+      <a *ngIf="postNewQuestion" class="create-question text-warning" (click)=togglePostNewQuestion() id="questions-new-anchor">Cancel New Question</a>
+    </div>
+    <div class="float-right forum-top-right">
+      <input class="filter-questions form-control" type="text" [(ngModel)]="queryString" placeholder="Filter questions">
+    </div>
+  </div>
+  <div class="table-responsive" class="col-md-12 col-sm-12">
+      <table class="table">
+        <thead>
+            <tr>
+              <th scope="col">Author</th>
+              <th scope="col">Date Posted</th>
+              <th scope="col">Question</th>
+              <th scope="col">Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor = "let question of allQuestions | filterForumTable:queryString">
+          <!-- <tr *ngFor = "let question of allQuestions"> -->
+            <td>{{question._user.firstName}}&nbsp;{{question._user.lastName}}</td>
+            <td>{{question.createdAt | date: 'MMMM dd, yyyy'}}</td>
+            <td><a [routerLink]="['/question',question._id]">{{question.content}}</a></td>
+            <td>
+              <a (click)="questionDelete(question._id)">Delete</a>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>  
+</div>

@@ -11,6 +11,7 @@ const mongoose = require("mongoose"),
 
 module.exports = function (app) {
     app.get("/", Users.root);
+
     app.get("/users", Users.usersGET);
     app.post("/users", Users.usersPOST);
     app.get("/users/:id", Users.userByIdGET);
@@ -18,7 +19,6 @@ module.exports = function (app) {
     app.put("/users/:id", Users.userByIdUpdate);
 
     app.post("/login", Users.login);
-
     app.get("/checkLoggedUser", Users.checkLoggedUser);
 
     app.get("/questions", Questions.questionsGET);
