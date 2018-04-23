@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>Register</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+
+<body>
+	<div class="container" id="main">
+		<div class="card">
+			<h1 class="text-warning">Register a New Account</h1>
+			<form (submit)=register()>
+				<div class="form-group">
+					<input 
+						class="form-control" 
+						type="text" 
+						name="firstName" 
+						placeholder="First Name" 
+						[(ngModel)]="user.firstName"
+						#fname="ngModel"
+						required
+						pattern="^[a-zA-Z]{2,}$"
+					>
+					<p *ngIf='fname.dirty && fname.invalid'>
+						<span *ngIf='fname.errors.required'>Required.</span>
+						<span *ngIf='fname.errors.pattern'>Invalid. Please use at least 2 letters.</span>
+					</p>
+
+					<input 
+						class="form-control" 
+						type="text" 
+						name="lastName" 
+						placeholder="Last Name" 
+						[(ngModel)]="user.lastName"
+						#lname="ngModel"
+						required
+						pattern="^[a-zA-Z]{2,}$"
+					>
+					<p *ngIf='lname.dirty && lname.invalid'>
+						<span *ngIf='lname.errors.required'>Required.</span>
+						<span *ngIf='lname.errors.pattern'>Invalid. Please use at least 2 letters.</span>
+					</p>
+
+					<input 
+						class="form-control" 
+						type="text" 
+						name="email" 
+						placeholder="Email" 
+						[(ngModel)]="user.email"
+						#email="ngModel"
+						required
+						pattern="^[a-zA-Z0-9.-_]+@[a-zA-Z]+\.[a-zA-Z]{2,4}$"
+					>
+					<p *ngIf='email.dirty && email.invalid'>
+						<span *ngIf='email.errors.required'>Required.</span>
+						<span *ngIf='email.errors.pattern'>Invalid. Please use at least 6 valid characters and correct email format.</span>
+					</p>
+					<p id="takenemail"></p>
+					<!-- ^^^ need help fixing weird formatting caused by this -->
+
+					<input 
+						class="form-control" 
+						type="password" 
+						name="password" 
+						placeholder="Password" 
+						[(ngModel)]="user.password"
+						#pw="ngModel"
+						required
+						pattern="^[a-zA-Z0-9.-_!@#%*?,~]{8,}"
+					>
+					<p *ngIf='pw.dirty && pw.invalid'>
+						<span *ngIf='pw.errors.required'>Required.</span>
+						<span *ngIf='pw.errors.pattern'>Invalid. Please use at least 8 valid characters.</span>
+					</p>
+
+					<input 
+						class="form-control" 
+						type="password" 
+						name="confirmPassword" 
+						placeholder="Confirm Password"
+						[(ngModel)]="confirmPassword"
+						#cpw="ngModel"
+						required
+					>
+					<p *ngIf='cpw.dirty && cpw.invalid'>
+						<span *ngIf='cpw.errors.required'>Required.</span>
+					</p>
+					<p *ngIf='cpw.dirty && confirmPassword !== user.password'>Passwords do not match.</p>
+					<p id="fnameerr"></p>
+					<p id="lnameerr"></p>
+					<p id="emailerr"></p>
+					<p id="pwerr"></p>
+					<p id="extraerrors"></p>
+					
+					<input 
+						class="btn btn-outline-success" 
+						type="submit" 
+						value="Register"
+						*ngIf='fname.valid && lname.valid && email.valid && pw.valid && cpw.valid && confirmPassword == user.password'
+					>
+				</div>
+			</form>
+		</div>
+		<p id="linker">Already a member? <a [routerLink]="['/login']">Login</a></p>
+	</div>
+</body>
+
+</html>
