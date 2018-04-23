@@ -2,7 +2,7 @@ var express = require("express");
 var path = require("path");
 var bp = require("body-parser");
 var session = require("express-session");
-var bcrypt = require("bcrypt-nodejs");
+var bcrypt = require("bcryptjs");
 var app = express();
 const port = 8000;
 app.use(bp.urlencoded({ extended:true }));

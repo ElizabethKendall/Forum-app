@@ -1,4 +1,5 @@
-const mongoose = require("mongoose");
+const mongoose = require("mongoose"),
+    bcrypt = require('bcryptjs');
 
 var User = mongoose.model("User");
 
@@ -19,14 +20,31 @@ module.exports = {
     },
 
     "usersPOST":(req, res) => {
-        var user = new User(req.body);
-        user.save(function(err){
+        User.find({email: req.body.email}, function(err,user){
             if(err){
-                res.json({message:"Error", errors: user.errors});
+                res.json({message: "Find Error", errors: err});
+            } else if(user.length > 0){
+                res.json({message: "Taken Email"});
+            } else {
+                var user = new User(req.body);
+                bcrypt.genSalt(10, (err, salt) => {
+                    bcrypt.hash(user.password, salt, (err, hash) => {
+                        if(err){
+                            res.json({message:"Error", errors: err});
+                        }
+                        user.password = hash;
+                        user.save(function (err) {
+                            if (err) {
+                                res.json({ message: "Model Error", errors: err });
+                            } else {
+                                res.json({ message: "Success", data: user });
+                                req.session.user = user;
+                                req.session.save();
+                            }
+                        });
+                    });
+                });
             }
-            else{
-                res.json({message:"Success", data:user});
-            }           
         });
     }, 
 
@@ -61,5 +79,41 @@ module.exports = {
                 res.json({message:"Success", data:user});
             }
         });
+    },
+    
+    "login":(req,res) => {
+        User.find({email: req.body.email}, function(err, user){
+            if (err){
+                res.json({message: "Find Error", errors: user.errors});
+            }
+            else{
+                if(user[0]){
+                    bcrypt.compare(req.body.password, user[0].password, function(err, result){
+                        if(err){
+                            res.json({message: "Compare Error", error: err});
+                        } else {
+                            res.json({message: "Success", data: result});
+                            req.session.user = user[0];
+                            req.session.save();
+                        }
+                    });
+                } else {
+                    res.json({message: "Incorrect Email"});
+                }
+            }
+        });
+    },
+
+    "checkLoggedUser":(req,res) => {
+        if(req.session.user){
+            res.json({message: "Logged", user: req.session.user});
+        } else {
+            res.json({message: "Not Logged"});
+        }
+    },
+
+    "logout":(req,res) => {
+        req.session.destroy();
+        res.redirect('/');
     }
 }

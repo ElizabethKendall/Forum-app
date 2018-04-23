@@ -1,6 +1,8 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-
+import { LoginComponent } from './login/login.component';
+import { RegistrationComponent } from './registration/registration.component';
+import { TempComponent } from './temp/temp.component';
 import { ForumComponent } from './forum/forum.component';
 import { QuestionsComponent } from './questions/questions.component';
 import { QuestionsNewComponent } from './questions-new/questions-new.component';
@@ -10,7 +12,10 @@ import { AnswersNewComponent } from './answers-new/answers-new.component';
 // See: https://medium.com/engineering-on-the-incline/reloading-current-route-on-click-angular-5-1a1bfc740ab2
 
 const routes: Routes = [
-  { path: '', redirectTo: '/forum', pathMatch: 'full' },
+	{ path: '', redirectTo: '/forum', pathMatch: 'full' },
+	{ path: 'login', component: LoginComponent },
+	{ path: 'register', component: RegistrationComponent },
+	{ path: '**', component: LoginComponent },
   // The route to a page with all questions
   { path: 'forum', component: ForumComponent },
   // The route to a page with a form to create a new question

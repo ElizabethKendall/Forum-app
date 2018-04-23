@@ -6,9 +6,9 @@ const mongoose = require("mongoose"),
     Answer = mongoose.model('Answer'),
     Answers = require('../controllers/Answers.js'),
     Comment = mongoose.model('Comment'),
-    Comments = require('../controllers/Comments.js');
+    Comments = require('../controllers/Comments.js'),
     path = require('path');
-    
+
 module.exports = function (app) {
     app.get("/", Users.root);
 
@@ -18,7 +18,10 @@ module.exports = function (app) {
     app.delete("/users/:id", Users.userDelete);
     app.put("/users/:id", Users.userByIdUpdate);
 
-    app.get("/questions", Questions.questionsGET);
+    app.post("/login", Users.login);
+    app.get("/checkLoggedUser", Users.checkLoggedUser);
+
+    app.get("/questions", Questions.questionsGET);
     app.post("/questions", Questions.questionsPOST);
     app.get("/questions/:id", Questions.questionByIdGET);
     app.delete("/questions/:id", Questions.questionDelete);
@@ -36,7 +39,9 @@ module.exports = function (app) {
     app.delete("/comments/:id", Comments.commentDelete);
     app.put("/comments/:id", Comments.commentByIdUpdate);
 
-    app.all('*', (req,res,next) => {
+    app.get("/logout", Users.logout);
+
+    app.get('*', function(req,res){
         res.sendFile(path.resolve('./client/dist/index.html'));
     });
 }

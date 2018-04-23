@@ -1,14 +1,16 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { AppComponent } from './app.component';
-import { AppRoutingModule } from './app-routing.module';
-
-import { FormsModule } from '@angular/forms'; // Need for ngModel directive that is used for 2-way data binding. Added to imports array.
 import { ReactiveFormsModule } from '@angular/forms'; // Need to pass form data between components.
+import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
-
+import { AppRoutingModule } from './app-routing.module';
+import { AppComponent } from './app.component';
+import { LoginComponent } from './login/login.component';
+import { RegistrationComponent } from './registration/registration.component';
 import { MainService } from './main.service';
-
+import { FooterComponent } from './footer/footer.component';
+import { NavComponent } from './nav/nav.component';
+import { TempComponent } from './temp/temp.component';
 import { ForumComponent } from './forum/forum.component';
 import { QuestionsNewComponent } from './questions-new/questions-new.component';
 import { QuestionsComponent } from './questions/questions.component';
@@ -19,6 +21,11 @@ import { CommentsNewComponent } from './comments-new/comments-new.component';
 @NgModule({
   declarations: [
     AppComponent,
+    LoginComponent,
+    RegistrationComponent,
+    FooterComponent,
+    NavComponent,
+    TempComponent,
     ForumComponent,
     QuestionsNewComponent,
     QuestionsComponent,
