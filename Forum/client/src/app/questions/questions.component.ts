@@ -22,6 +22,7 @@ export class QuestionsComponent implements OnInit {
   postNewCommentAnswerId: String;
   addAnswerForm: FormGroup;
   addCommentForm: FormGroup;
+
   // tslint:disable-next-line:max-line-length
   constructor(private _mainService: MainService, private _router: Router, private _route: ActivatedRoute, _formBuilder: FormBuilder) {
     this.addAnswerForm = _formBuilder.group({
@@ -45,6 +46,10 @@ export class QuestionsComponent implements OnInit {
     console.log('$event.constructor.name', $event.constructor.name);
     if ($event === 'Answer') {
       this.togglePostNewAnswer();
+      this.ngOnInit();
+    } else if ($event['_answer']) {
+      console.log('$event[_answer]', $event['_answer']);
+      this.togglePostNewComment($event);
       this.ngOnInit();
     } else {
       this.togglePostNewComment($event['_id']);
@@ -149,25 +154,33 @@ export class QuestionsComponent implements OnInit {
     }
   }
   togglePostNewComment(answerId) {
-    // console.log('in togglePostNewComment');
+    console.log('in togglePostNewComment');
     console.log('this.postNewComment', this.postNewComment);
     if (!this.postNewComment) {
-      // console.log('in 1');
+      console.log('in 1');
       this.postNewComment = !this.postNewComment;
       this.updateCommentsNewFormText(answerId);
       this.postNewCommentAnswerId = answerId;
     } else if (this.postNewCommentAnswerId === answerId) {
-      // console.log('in 2');
+      console.log('in 2');
       this.postNewComment = !this.postNewComment;
       this.updateCommentsNewFormText(answerId);
       this.postNewCommentAnswerId = null;
+    } else if (answerId['_answer']) {
+      console.log('in 5');
+      this.postNewComment = !this.postNewComment;
+      this.updateCommentsNewFormText(answerId['_answer']);
+      this.postNewCommentAnswerId = null;
     } else if ( this.postNewComment && this.postNewCommentAnswerId !== answerId) {
-      // console.log('in 3');
+      console.log('in 3');
+      console.log('answerId', answerId);
+      console.log(this.postNewCommentAnswerId);
+      console.log(answerId);
       this.updateCommentsNewFormText(this.postNewCommentAnswerId);
       this.postNewCommentAnswerId = answerId;
       this.updateCommentsNewFormText(answerId);
     } else {
-      // console.log('in 4');
+      console.log('in 4');
       window.alert('UNKNOWN ERROR WITH TOGGLE POST NEW COMMENT');
     }
     // TODO: Need to emit to child comment form something to tell it to reset.

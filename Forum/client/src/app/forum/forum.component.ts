@@ -43,7 +43,7 @@ export class ForumComponent implements OnInit {
   setUserId() {
     // this.userId = '5acea435001a3839e89eb686';
     this._mainService.checkLoggedUser(() => {
-      if (this.userId === ''){
+      if (this.userId === '') {
         this._router.navigate(['login']);
       }
       // console.log(this.userId);

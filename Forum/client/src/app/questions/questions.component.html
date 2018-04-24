@@ -13,7 +13,7 @@
                 <!-- <div *ngFor="let opt of userXpOpts" >{{opt}}</div> -->
               </select>
             </div>
-            {{userXp}}
+            <!-- {{userXp}} -->
           </form>
         </div>
       </div>
@@ -106,22 +106,28 @@
       </div>
     </div>
   </section>
-  <section id="input-forms-bottom">
+  <section id="input-forms-bottom" *ngIf="userXp==2">
     <div class="container">
-        <div class="row">
-          <div *ngIf="postNewAnswer && userXp==2" id="answers-new-form" class="answers-new-form">
+
+        <div class="row" *ngIf="postNewAnswer && userXp==2">
+          <div class="card form-card">
             <form [formGroup]="addAnswerForm">
               <app-answers-new [questionsAddAnswerForm]="addAnswerForm.get('answer')" [questionsQuestionId]=questionId (updateQuestionEvent)="receiveUpdatedQuestion($event)"></app-answers-new>
             </form>
           </div>
         </div> 
-        <div class="row">
-          <div *ngIf="postNewComment && userXp==2" id="comments-new-form" class="comments-new-form">
+
+        <div class="row" *ngIf="postNewComment && userXp==2">
+          <div class="card form-card">
             <form [formGroup]="addCommentForm">
-              <app-comments-new [questionsAddCommentForm]="addCommentForm.get('comment')" [questionsQuestionId]=questionId [questionsAnswerId]=answer._id [questionsUserId]=userId (updateQuestionEvent)="receiveUpdatedQuestion($event)"></app-comments-new>
+              <!-- <app-comments-new [questionsAddCommentForm]="addCommentForm.get('comment')" [questionsQuestionId]=questionId [questionsAnswerId]=answer._id [questionsUserId]=userId (updateQuestionEvent)="receiveUpdatedQuestion($event)"></app-comments-new> -->
+              <app-comments-new [questionsAddCommentForm]="addCommentForm.get('comment')" [questionsQuestionId]=questionId [questionsAnswerId]="postNewCommentAnswerId" [questionsUserId]=userId (updateQuestionEvent)="receiveUpdatedQuestion($event)"></app-comments-new>
             </form>
           </div>
         </div>
-      </div>
+
+
+
+      </div> <!-- end container div -->
   </section>
 </div>

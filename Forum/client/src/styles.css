@@ -1,7 +1,7 @@
 /* You can add global styles to this file, and also import other style files */
-*{
+*{ 
     /* outline: red 1px solid; */
-}
+ }
 
 h1 h2 h3 h4 h5 h6 form{
     display: block;
@@ -141,4 +141,12 @@ h1 h2 h3 h4 h5 h6 form{
     border-left: thick solid #fd7e14;
     /* display: inline-block; */
     padding-left: 0.5rem;
+}
+
+/* #input-forms-bottom form{
+    margin: 0;
+} */
+
+#input-forms-bottom form{
+    margin-top: 0.5rem;
 }
