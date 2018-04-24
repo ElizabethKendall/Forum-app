@@ -10,7 +10,6 @@ import { RegistrationComponent } from './registration/registration.component';
 import { MainService } from './main.service';
 import { FooterComponent } from './footer/footer.component';
 import { NavComponent } from './nav/nav.component';
-import { TempComponent } from './temp/temp.component';
 import { ForumComponent } from './forum/forum.component';
 import { QuestionsNewComponent } from './questions-new/questions-new.component';
 import { QuestionsComponent } from './questions/questions.component';
@@ -25,7 +24,6 @@ import { CommentsNewComponent } from './comments-new/comments-new.component';
     RegistrationComponent,
     FooterComponent,
     NavComponent,
-    TempComponent,
     ForumComponent,
     QuestionsNewComponent,
     QuestionsComponent,

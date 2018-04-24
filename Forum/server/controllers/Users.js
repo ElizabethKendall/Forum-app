@@ -106,7 +106,7 @@ module.exports = {
 
     "checkLoggedUser":(req,res) => {
         if(req.session.user){
-            res.json({message: "Logged", user: req.session.user});
+            res.json({message: "Logged", user: req.session.user._id});
         } else {
             res.json({message: "Not Logged"});
         }

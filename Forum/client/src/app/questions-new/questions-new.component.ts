@@ -25,6 +25,9 @@ export class QuestionsNewComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
+    this._mainService.loggedUser.subscribe((data) => {
+      this.userId = data;
+    });
     this.setUserId();
     this.setUser();
     this.setQuestion();
@@ -42,7 +45,13 @@ export class QuestionsNewComponent implements OnInit, OnDestroy {
 
   // TODO: this will have to be edited to pull logged in user's id from session
   setUserId() {
-    this.userId = '5acea435001a3839e89eb686';
+    // this.userId = '5acea435001a3839e89eb686';
+    this._mainService.checkLoggedUser(() => {
+      if (this.userId === '') {
+        this._router.navigate(['login']);
+      }
+      // console.log(this.userId);
+    });
   }
   setUser() {
     this.user = { _id: null,

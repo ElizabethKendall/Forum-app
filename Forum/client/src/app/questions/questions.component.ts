@@ -56,6 +56,9 @@ export class QuestionsComponent implements OnInit {
   }
   ngOnInit() {
     console.log('in ngOnInit');
+    this._mainService.loggedUser.subscribe((data) => {
+      this.userId = data;
+    });
     this.setQuestionId();
     this.setQuestion();
     this.setUserId();
@@ -66,7 +69,13 @@ export class QuestionsComponent implements OnInit {
     // this.setUserIdAnswersNewComponent();
   }
   setUserId() {
-    this.userId = '5acea435001a3839e89eb686';
+    // this.userId = '5acea435001a3839e89eb686';
+    this._mainService.checkLoggedUser(() => {
+      if (this.userId === '') {
+        this._router.navigate(['login']);
+      }
+      // console.log(this.userId);
+    });
   }
   setQuestionId() {
     this._route.params.subscribe( ( params: Params ) => {

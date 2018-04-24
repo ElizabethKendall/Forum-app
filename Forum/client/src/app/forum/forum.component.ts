@@ -18,25 +18,36 @@ export class ForumComponent implements OnInit {
   postNewQuestion: Boolean;
   queryString: String;
   constructor(private _mainService: MainService, private _router: Router) {
+    this.userId = '';
   }
   ngOnInit() {
+    this._mainService.loggedUser.subscribe((data) => {
+      this.userId = data;
+    });
+    this.setUserId();
     this.setUser();
     this.findAllQuestions();
-    this.setUserId();
     this.userByIdGET();
   }
   findAllQuestions() {
     this._mainService.findAllQuestions( (res) => {
       if (res.message === 'Success') {
         this.allQuestions = res.data;
+        console.log('allQuestions', this.allQuestions);
       } else {
-        console.log(res.errors);
+        // console.log(res.errors);
       }
     });
   }
   // TODO: this will have to be edited to pull logged in user's id from session
   setUserId() {
-    this.userId = '5acea435001a3839e89eb686';
+    // this.userId = '5acea435001a3839e89eb686';
+    this._mainService.checkLoggedUser(() => {
+      if (this.userId === ''){
+        this._router.navigate(['login']);
+      }
+      // console.log(this.userId);
+    });
   }
   setUser() {
     this.user = { _id: null,
@@ -84,7 +95,7 @@ export class ForumComponent implements OnInit {
       if ( res['message'] !== 'Success' ) {
         this.showResErrors(res);
       } else {
-        console.log('Success');
+        // console.log('Success');
         this.userByIdGET();
       }
     });

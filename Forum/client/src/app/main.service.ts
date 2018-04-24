@@ -5,10 +5,10 @@ import { BehaviorSubject } from 'rxjs';
 @Injectable()
 export class MainService {
 
-	loggedUser: BehaviorSubject<object>;
+	loggedUser: BehaviorSubject<string>;
 
 	constructor(private _http: HttpClient) {
-		this.loggedUser = new BehaviorSubject({unlogged: true});
+		this.loggedUser = new BehaviorSubject('');
 	}
 
 	register(user, cb){
