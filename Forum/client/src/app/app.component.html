@@ -1,5 +1,19 @@
 <div class="container" style="margin-top: 10px;">
-  <app-nav></app-nav>
+  <section>
+    <div class="container">
+      <div class="sidebar" [@animateSidebar]='toggleSidebarStateName'>
+        <div class="sidebar-line"></div>
+        <a href="javascript:void(0)" class="closebtn" (click)="toggleSidebar()">&times;</a>
+        <div>
+          <p>User Info Goes Here</p>
+          <p>Use an observable in app.component.ts to detect if someone is logged in or not.</p>
+          <p>If someone is logged in, then show "Profile" in the NavBar with *ngIf. That will send a message to the app component if clicked to run the app component's method "toggleSidebar". Use event emitters like those that emit from either the new answer or new comment components when a new object is sent back over to the question component. Or observable?</p>
+          <p>If logged in, don't show "Register" in the NavBar</p>
+        </div>
+      </div>
+    </div>
+  </section>
+  <app-nav (updateAppEvent)="receiveNavbarUpdate($event)"></app-nav>
   <router-outlet></router-outlet>
   <app-footer></app-footer>
 </div>

@@ -3,7 +3,6 @@ import { MainService } from './../main.service';
 import { AppRoutingModule } from './../app-routing.module';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { FormGroup } from '@angular/forms';
-// import { QuestionsComponent } from '../questions/questions.component'; // TODO: this isn't injected
 
 @Component({
   selector: 'app-answers-new',
@@ -43,7 +42,6 @@ export class AnswersNewComponent implements OnInit {
       if (this.userId === '') {
         this._router.navigate(['login']);
       }
-      // console.log(this.userId);
     });
   }
   setUser() {

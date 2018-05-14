@@ -46,7 +46,6 @@ export class ForumComponent implements OnInit {
       if (this.userId === '') {
         this._router.navigate(['login']);
       }
-      // console.log(this.userId);
     });
   }
   setUser() {

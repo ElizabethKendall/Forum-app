@@ -8,7 +8,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 @Component({
   selector: 'app-questions',
   templateUrl: './questions.component.html',
-  styleUrls: ['./questions.component.css']
+  styleUrls: ['./questions.component.css'],
 })
 export class QuestionsComponent implements OnInit {
   userXpOpts: Object;
@@ -22,7 +22,6 @@ export class QuestionsComponent implements OnInit {
   postNewCommentAnswerId: String;
   addAnswerForm: FormGroup;
   addCommentForm: FormGroup;
-
   // tslint:disable-next-line:max-line-length
   constructor(private _mainService: MainService, private _router: Router, private _route: ActivatedRoute, _formBuilder: FormBuilder) {
     this.addAnswerForm = _formBuilder.group({
@@ -55,9 +54,6 @@ export class QuestionsComponent implements OnInit {
       this.togglePostNewComment($event['_id']);
       this.ngOnInit();
     }
-    // } else {
-    //   alert('ERROR IN receiveUpdatedQuestion');
-    // }
   }
   ngOnInit() {
     console.log('in ngOnInit');
@@ -79,7 +75,6 @@ export class QuestionsComponent implements OnInit {
       if (this.userId === '') {
         this._router.navigate(['login']);
       }
-      // console.log(this.userId);
     });
   }
   setQuestionId() {
@@ -87,12 +82,6 @@ export class QuestionsComponent implements OnInit {
       this.questionId = params['id'];
     });
   }
-  // setQuestionIdAnswersNewComponent() {
-  //   this._answersNewComponent.questionId = this.questionId;
-  // }
-  // setUserIdAnswersNewComponent() {
-  //   this._answersNewComponent.userId = this.userId;
-  // }
 
   setUser() {
     this.user = { _id: null,
@@ -131,7 +120,6 @@ export class QuestionsComponent implements OnInit {
         this.showResErrors(res);
       } else {
         this.question = res['data'][0];
-        // console.log('questionByIdGET this.question:', this.question);
       }
     });
   }

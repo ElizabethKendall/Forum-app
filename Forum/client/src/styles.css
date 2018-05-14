@@ -1,7 +1,7 @@
 /* You can add global styles to this file, and also import other style files */
-*{ 
-    /* outline: red 1px solid; */
- }
+/* *{  
+    outline: red 1px solid;
+} */
 
 h1 h2 h3 h4 h5 h6 form{
     display: block;
@@ -147,6 +147,95 @@ h1 h2 h3 h4 h5 h6 form{
     margin: 0;
 } */
 
-#input-forms-bottom form{
-    margin-top: 0.5rem;
+.scrollable-div{
+    /* background: orange; */
+    overflow:auto;
+    /* scroll-behavior: auto; */
+    /* position: relative; */
+    margin-bottom: 3.5rem;
 }
+
+#input-forms-bottom{
+    /* background: blue; */
+    /* padding-top: 0.5rem; */
+    width: 100%;
+    position: fixed; 
+    bottom: 3rem;
+    padding: 0.25rem;
+    z-index: 1;
+}
+
+.bottom-form-card{
+    /* outline: 1px orangered solid; */
+    /* background: blue; */
+    padding-top: 0.5rem;
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+}
+
+#input-forms-bottom form{
+    width: 100%;
+}
+
+/* .form-left{ */
+    /* width: 80%; */
+    /* display: inline-block; */
+    /* vertical-align: top; */
+/* } */
+
+/* .form-right{ */
+    /* width: 18%; */
+    /* text-align: center; */
+    /* display: inline-block; */
+    /* vertical-align: top; */
+/* } */
+
+/* .error-msg{
+    display: inline;
+} */
+
+/* #userXpInput{
+
+} */
+
+.sidebar{
+    /* clear:none; */
+    /* float:left; */
+    /* position: absolute; */
+    /* float: right; */
+    /* height: 80%; */
+    /* right: 0; */
+    /* width: 10rem; */
+    /* background: aqua; */
+    height: 100%;
+    width: 0;
+    position: fixed;
+    z-index: 2;
+    top: 0;
+    right: 0;
+    background-color:#303030;
+    overflow-x: hidden;
+    transition: 0.5s;
+    padding-top: 60px;
+    margin-left: 2rem;
+}
+
+.sidebar-line{
+    width: 0px;
+    min-height: 50px;
+    height: 100%;
+    float: left;
+    border-left: thick solid #fd7e14;
+    margin-right: .5rem;
+    margin-left: 25px;
+}
+
+.closebtn{
+    position: absolute;
+    top: 0;
+    left: 25px;
+    font-size: 36px;
+    /* margin-left: 50px; */
+}
+/* https://www.w3schools.com/howto/tryit.asp?filename=tryhow_js_sidenav
+https://www.w3schools.com/howto/howto_js_sidenav.asp */

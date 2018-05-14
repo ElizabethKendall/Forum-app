@@ -1,9 +1,11 @@
 <div class="main">
+
   <section id="question-top">
     <div class="container">
       <div class="row">
         <div class="float-left question-top-left">
           <a href="/forum">Back to Forum</a>
+          <!-- <button (click)="toggleTestRight()">Toggle Sidebar</button> -->
         </div>
         <div class="float-right question-top-right">
           <form>
@@ -19,115 +21,117 @@
       </div>
     </div>
   </section>
-  <section id="question">
-    <div class="container">
-      <div class="row">
-        <div class="card question-card">
-          <div class="card-authorship">
-            <div class="author">{{question._user.firstName}} {{question._user.lastName}}</div>
-            <!-- <div class="dateAuthored">{{question.createdAt | date:'fullDate'}} {{question._id}}</div> -->
-            <div class="dateAuthored">{{question.createdAt | date:'fullDate'}}</div>
-            <div class="card-actions"><a class="text-warning" (click)="togglePostNewAnswer()" id="answers-new-anchor">Post New Answer</a></div>
-            <!-- href="/answer/create/{{question._id}}" -->
-          </div>
-          <div class="card-body">
-            <div class="forum-content-type float-left">Q</div>
-              {{question.content}}
-          </div>    
-          <div class="card-actions card-actions-lower float-right"><a class="text-primary" (click)="questionDelete(question._id)">Delete Question</a></div>
-          <div *ngIf="postNewAnswer&& userXp==1" id="answers-new-form" class="answers-new-form">
-            <form [formGroup]="addAnswerForm">
-              <app-answers-new [questionsAddAnswerForm]="addAnswerForm.get('answer')" [questionsQuestionId]=questionId (updateQuestionEvent)="receiveUpdatedQuestion($event)"></app-answers-new>
-            </form>
-            <!-- {{ userId }} <br>
-            {{ questionId }} <br>
-            {{ addAnswerForm.value | json }} -->
-          </div>      
-        </div>
-      </div>
-    </div>
-  </section>
-  <section id="answers">
-    <div class="container">
-      <div class="row" *ngFor='let answer of question._answer'>
-        <div class="card answer-card">         
-          <div class="card-authorship">
-            <div class="author">{{answer._user.firstName}} {{answer._user.lastName}}</div>
-            <!-- <div class="dateAuthored">{{answer.createdAt | date:'fullDate'}} {{answer._id}}</div> -->
-            <div class="dateAuthored">{{answer.createdAt | date:'fullDate'}}</div>
-            <!-- <div class="card-actions"><a class="text-warning" href="/comment/create/{{answer._id}}">Post New Comment</a></div> -->
-            <div class="card-actions"><a class="text-warning" (click)="togglePostNewComment(answer._id)" id="comments-new-anchor-{{answer._id}}">Post New Comment</a></div>
-          </div>
-          <div class="card-body">
-            <div class="forum-content-type float-left">A</div>
-            <div class="answer-content-line"></div>
-            <div class="answer-content">{{answer.content}}</div>
-          </div> 
-            <div class="card-actions card-actions-lower float-right"><a class="text-primary" (click)="answerDelete(answer._id)">Delete Answer</a></div>          
-            <div *ngIf="postNewComment && postNewCommentAnswerId===answer._id && userXp==1" id="comments-new-form" class="comments-new-form">
-              <form [formGroup]="addCommentForm">
-                <app-comments-new [questionsAddCommentForm]="addCommentForm.get('comment')" [questionsQuestionId]=questionId [questionsAnswerId]=answer._id [questionsUserId]=userId (updateQuestionEvent)="receiveUpdatedQuestion($event)"></app-comments-new>
+  <div class="scrollable-div">
+    <section id="question">
+      <div class="container">
+        <div class="row">
+          <div class="card question-card">
+            <div class="card-authorship">
+              <div class="author">{{question._user.firstName}} {{question._user.lastName}}</div>
+              <!-- <div class="dateAuthored">{{question.createdAt | date:'fullDate'}} {{question._id}}</div> -->
+              <div class="dateAuthored">{{question.createdAt | date:'fullDate'}}</div>
+              <div class="card-actions"><a class="text-warning" (click)="togglePostNewAnswer()" id="answers-new-anchor">Post New Answer</a></div>
+              <!-- href="/answer/create/{{question._id}}" -->
+            </div>
+            <div class="card-body">
+              <div class="forum-content-type float-left">Q</div>
+                {{question.content}}
+            </div>    
+            <div class="card-actions card-actions-lower float-right"><a class="text-primary" (click)="questionDelete(question._id)">Delete Question</a></div>
+            <div *ngIf="postNewAnswer&& userXp==1" id="answers-new-form" class="answers-new-form">
+              <form [formGroup]="addAnswerForm">
+                <app-answers-new [questionsAddAnswerForm]="addAnswerForm.get('answer')" [questionsQuestionId]=questionId (updateQuestionEvent)="receiveUpdatedQuestion($event)"></app-answers-new>
               </form>
               <!-- {{ userId }} <br>
               {{ questionId }} <br>
-              {{ answer._id }} <br>
-              {{ addCommentForm.value | json }} -->
-            </div> 
-        </div>
-        <div class="container comments-container">
-          <div class="row" *ngFor='let comment of answer._comments'>
-            <div class="card comment-card">
-              <div class="card-authorship">
-                <div class="author">{{comment._user.firstName}} {{comment._user.lastName}}</div>
-                <!-- <div class="dateAuthored">{{comment.createdAt | date:'fullDate'}} {{comment._id}}}</div> -->
-                <div class="dateAuthored">{{comment.createdAt | date:'fullDate'}}</div>
-              </div>
-              <div class="card-body">
-                <!-- <div class="forum-content-type forum-content-type-comment float-left"></div> -->
-                <div class="forum-content-type float-left">C</div>
-                <div class="comment-content-line"></div>
-                <div class="comment-content">{{comment.content}}</div>
-              </div>  
-              <div class="card-actions card-actions-lower float-right"><a class="text-primary" (click)="commentDelete(comment._id, answer)">Delete Comment</a></div> 
-            </div>
+              {{ addAnswerForm.value | json }} -->
+            </div>      
           </div>
-        </div>  
-          <!-- <div class="card new-comment-card">
-            <div class="card-body">
-              <form>
-                <div class="form-group">
-                  <input class="form-control" type="text" name="name" value="{{user['name']}}" [(ngModel)]="newComment.name" placeholder="{{user['name']}}">
-                  <input class="form-control" type="textarea" name="content" [(ngModel)]="newComment.content" placeholder="Comment">
-                  <input class="btn btn-default" type="submit" value="Post comment" (click)="createComment(answer._id)">
-                </div>
-              </form>
-            </div>
-          </div> -->
+        </div>
       </div>
-    </div>
-  </section>
-  <section id="input-forms-bottom" *ngIf="userXp==2">
-    <div class="container">
+    </section>
+    <section id="answers">
+      <div class="container">
+        <div class="row" *ngFor='let answer of question._answer'>
+          <div class="card answer-card">         
+            <div class="card-authorship">
+              <div class="author">{{answer._user.firstName}} {{answer._user.lastName}}</div>
+              <!-- <div class="dateAuthored">{{answer.createdAt | date:'fullDate'}} {{answer._id}}</div> -->
+              <div class="dateAuthored">{{answer.createdAt | date:'fullDate'}}</div>
+              <!-- <div class="card-actions"><a class="text-warning" href="/comment/create/{{answer._id}}">Post New Comment</a></div> -->
+              <div class="card-actions"><a class="text-warning" (click)="togglePostNewComment(answer._id)" id="comments-new-anchor-{{answer._id}}">Post New Comment</a></div>
+            </div>
+            <div class="card-body">
+              <div class="forum-content-type float-left">A</div>
+              <div class="answer-content-line"></div>
+              <div class="answer-content">{{answer.content}}</div>
+            </div> 
+              <div class="card-actions card-actions-lower float-right"><a class="text-primary" (click)="answerDelete(answer._id)">Delete Answer</a></div>          
+              <div *ngIf="postNewComment && postNewCommentAnswerId===answer._id && userXp==1" id="comments-new-form" class="comments-new-form">
+                <form [formGroup]="addCommentForm">
+                  <app-comments-new [questionsAddCommentForm]="addCommentForm.get('comment')" [questionsQuestionId]=questionId [questionsAnswerId]=answer._id [questionsUserId]=userId (updateQuestionEvent)="receiveUpdatedQuestion($event)"></app-comments-new>
+                </form>
+                <!-- {{ userId }} <br>
+                {{ questionId }} <br>
+                {{ answer._id }} <br>
+                {{ addCommentForm.value | json }} -->
+              </div> 
+          </div>
+          <div class="container comments-container">
+            <div class="row" *ngFor='let comment of answer._comments'>
+              <div class="card comment-card">
+                <div class="card-authorship">
+                  <div class="author">{{comment._user.firstName}} {{comment._user.lastName}}</div>
+                  <!-- <div class="dateAuthored">{{comment.createdAt | date:'fullDate'}} {{comment._id}}}</div> -->
+                  <div class="dateAuthored">{{comment.createdAt | date:'fullDate'}}</div>
+                </div>
+                <div class="card-body">
+                  <!-- <div class="forum-content-type forum-content-type-comment float-left"></div> -->
+                  <div class="forum-content-type float-left">C</div>
+                  <div class="comment-content-line"></div>
+                  <div class="comment-content">{{comment.content}}</div>
+                </div>  
+                <div class="card-actions card-actions-lower float-right"><a class="text-primary" (click)="commentDelete(comment._id, answer)">Delete Comment</a></div> 
+              </div>
+            </div>
+          </div>  
+            <!-- <div class="card new-comment-card">
+              <div class="card-body">
+                <form>
+                  <div class="form-group">
+                    <input class="form-control" type="text" name="name" value="{{user['name']}}" [(ngModel)]="newComment.name" placeholder="{{user['name']}}">
+                    <input class="form-control" type="textarea" name="content" [(ngModel)]="newComment.content" placeholder="Comment">
+                    <input class="btn btn-default" type="submit" value="Post comment" (click)="createComment(answer._id)">
+                  </div>
+                </form>
+              </div>
+            </div> -->
+        </div>
+      </div>
+    </section>
+  </div> <!-- end scrollable-div div -->
+</div> <!-- end main div -->
 
-        <div class="row" *ngIf="postNewAnswer && userXp==2">
-          <div class="card form-card">
+<section class="fixed-bottom" id="input-forms-bottom" *ngIf="userXp==2 && (postNewAnswer || postNewComment)">
+    <div class="container" >
+      <div class="card form-card bottom-form-card">
+        <div class="row" *ngIf="postNewAnswer && userXp==2">  
             <form [formGroup]="addAnswerForm">
               <app-answers-new [questionsAddAnswerForm]="addAnswerForm.get('answer')" [questionsQuestionId]=questionId (updateQuestionEvent)="receiveUpdatedQuestion($event)"></app-answers-new>
             </form>
-          </div>
         </div> 
-
         <div class="row" *ngIf="postNewComment && userXp==2">
-          <div class="card form-card">
             <form [formGroup]="addCommentForm">
-              <!-- <app-comments-new [questionsAddCommentForm]="addCommentForm.get('comment')" [questionsQuestionId]=questionId [questionsAnswerId]=answer._id [questionsUserId]=userId (updateQuestionEvent)="receiveUpdatedQuestion($event)"></app-comments-new> -->
               <app-comments-new [questionsAddCommentForm]="addCommentForm.get('comment')" [questionsQuestionId]=questionId [questionsAnswerId]="postNewCommentAnswerId" [questionsUserId]=userId (updateQuestionEvent)="receiveUpdatedQuestion($event)"></app-comments-new>
             </form>
-          </div>
         </div>
-
-
-
-      </div> <!-- end container div -->
+      </div>
+    </div> <!-- end container div -->
   </section>
-</div>
+
+<!--  <section >
+    <div class="container">
+      <div class="sidebar" [@animateSidebar]='toggleTestRightStateName'>
+      </div>
+    </div>
+  </section> -->
