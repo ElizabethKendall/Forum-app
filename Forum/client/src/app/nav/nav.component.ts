@@ -11,7 +11,6 @@ export class NavComponent implements OnInit {
 
   ngOnInit() {
   }
-
   talkToAppComponent() {
     this.updateAppEvent.emit('Nav');
   }
