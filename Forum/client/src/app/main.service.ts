@@ -5,32 +5,32 @@ import { BehaviorSubject } from 'rxjs';
 @Injectable()
 export class MainService {
 
-	loggedUser: BehaviorSubject<string>;
+  loggedUser: BehaviorSubject<string>;
 
-	constructor(private _http: HttpClient) {
-		this.loggedUser = new BehaviorSubject('');
-	}
+  constructor(private _http: HttpClient) {
+  this.loggedUser = new BehaviorSubject('');
+  }
 
-	register(user, cb){
-		this._http.post('/users', user).subscribe((res) => {
-			cb(res);
-		});
-	}
+  register(user, cb) {
+    this._http.post('/users', user).subscribe((res) => {
+      cb(res);
+    });
+  }
 
-	login(user, cb){
-		this._http.post('/login', user).subscribe((res) => {
-			cb(res);
-		})
-	}
+  login(user, cb) {
+    this._http.post('/login', user).subscribe((res) => {
+      cb(res);
+    });
+  }
 
-	checkLoggedUser(cb){
-		this._http.get('/checkLoggedUser').subscribe((res) => {
-			if(res['message'] == "Logged"){
-				this.loggedUser.next(res['user']);
-			}
-			cb();
-		})
-	}
+  checkLoggedUser(cb) {
+    this._http.get('/checkLoggedUser').subscribe((res) => {
+      if (res['message'] === 'Logged') {
+        this.loggedUser.next(res['user']);
+      }
+      cb();
+    });
+  }
 
   findAllQuestions(cb) {
     this._http.get('/questions').subscribe( (res) => { cb(res); });

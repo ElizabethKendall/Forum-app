@@ -1,16 +1,41 @@
 <div class="container">
+  
+  <!-- {{userId}}<br>
+  {{postNewAnswer}}<br>
+  pristine {{questionsAddAnswerForm.pristine}} <br>
+  dirty {{questionsAddAnswerForm.dirty}} <br>
+  valid {{questionsAddAnswerForm.valid}} <br>
+  errors {{questionsAddAnswerForm.errors | json}} <br>
+  status {{questionsAddAnswerForm.status}} <br>
+  content {{questionsAddAnswerForm.content}} <br>
+  content {{questionsAddAnswerForm.value['content']}}<br> -->
+<!-- 
+  <form>
+      <div class="form-group" [formGroup]="questionsAddAnswerForm">
+        
+        <div class="form-left float-left">
+          <div class="form-item create-input">
+            <textarea class="form-control" id="input-content" name="content" placeholder="Answer" minlength="1" required formControlName="content"></textarea>
+          </div>
+        </div>
+        
+        <div class="form-right float-right">
+          <input *ngIf='questionsAddAnswerForm.valid && !questionsAddAnswerForm.pristine' type="submit" value="Post" (click)="createAnswer()" class="btn btn-outline-success btn-child-forms">
+        </div>
+  
+      </div>
+    </form> -->
+
   <form>
     <div class="form-group" [formGroup]="questionsAddAnswerForm">
-      <div class="form-item create-input">
-        <!-- <input class="form-control" type="text" name="content" placeholder="Answer" minlength="1" maxlength="140" required [(ngModel)]="answer.content" #answerContent="ngModel"/> -->
-        <!-- <input class="form-control" type="textarea" id="input-content" name="content" placeholder="Answer" minlength="1" required formControlName="content"/> -->
-        <textarea class="form-control" id="input-content" name="content" placeholder="Answer" minlength="1" required formControlName="content"></textarea>
-      </div>
-      <!-- <input *ngIf='!answerContent.errors' type="submit" value="Post" (click)="createAnswer()" class="btn btn-primary"> -->
-      <input type="submit" value="Post" (click)="createAnswer()" class="btn btn-outline-success btn-child-forms">
+        <div class="form-item create-input">
+          <textarea class="form-control" id="input-content" name="content" placeholder="Answer" minlength="1" required formControlName="content"></textarea>
+        </div>    
+        <input *ngIf='questionsAddAnswerForm.valid && !questionsAddAnswerForm.pristine' type="submit" value="Post" (click)="createAnswer()" class="btn btn-outline-success btn-child-forms">
     </div>
   </form>
-  <!-- <div class="error-msg" *ngIf='answerContent.errors && answerContent.dirty'>
+  <div class="error-msg" *ngIf='!questionsAddAnswerForm.valid && !questionsAddAnswerForm.pristine'>
       <p class="text-warning">Answer must be 1 to 140 characters long.</p>
-  </div> -->
+  </div>
+
 </div>

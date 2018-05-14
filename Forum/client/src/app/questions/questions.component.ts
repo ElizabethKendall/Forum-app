@@ -8,7 +8,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 @Component({
   selector: 'app-questions',
   templateUrl: './questions.component.html',
-  styleUrls: ['./questions.component.css']
+  styleUrls: ['./questions.component.css'],
 })
 export class QuestionsComponent implements OnInit {
   userXpOpts: Object;
@@ -46,13 +46,14 @@ export class QuestionsComponent implements OnInit {
     if ($event === 'Answer') {
       this.togglePostNewAnswer();
       this.ngOnInit();
+    } else if ($event['_answer']) {
+      console.log('$event[_answer]', $event['_answer']);
+      this.togglePostNewComment($event);
+      this.ngOnInit();
     } else {
       this.togglePostNewComment($event['_id']);
       this.ngOnInit();
     }
-    // } else {
-    //   alert('ERROR IN receiveUpdatedQuestion');
-    // }
   }
   ngOnInit() {
     console.log('in ngOnInit');
@@ -74,7 +75,6 @@ export class QuestionsComponent implements OnInit {
       if (this.userId === '') {
         this._router.navigate(['login']);
       }
-      // console.log(this.userId);
     });
   }
   setQuestionId() {
@@ -82,12 +82,6 @@ export class QuestionsComponent implements OnInit {
       this.questionId = params['id'];
     });
   }
-  // setQuestionIdAnswersNewComponent() {
-  //   this._answersNewComponent.questionId = this.questionId;
-  // }
-  // setUserIdAnswersNewComponent() {
-  //   this._answersNewComponent.userId = this.userId;
-  // }
 
   setUser() {
     this.user = { _id: null,
@@ -126,7 +120,6 @@ export class QuestionsComponent implements OnInit {
         this.showResErrors(res);
       } else {
         this.question = res['data'][0];
-        // console.log('questionByIdGET this.question:', this.question);
       }
     });
   }
@@ -149,25 +142,33 @@ export class QuestionsComponent implements OnInit {
     }
   }
   togglePostNewComment(answerId) {
-    // console.log('in togglePostNewComment');
+    console.log('in togglePostNewComment');
     console.log('this.postNewComment', this.postNewComment);
     if (!this.postNewComment) {
-      // console.log('in 1');
+      console.log('in 1');
       this.postNewComment = !this.postNewComment;
       this.updateCommentsNewFormText(answerId);
       this.postNewCommentAnswerId = answerId;
     } else if (this.postNewCommentAnswerId === answerId) {
-      // console.log('in 2');
+      console.log('in 2');
       this.postNewComment = !this.postNewComment;
       this.updateCommentsNewFormText(answerId);
       this.postNewCommentAnswerId = null;
+    } else if (answerId['_answer']) {
+      console.log('in 5');
+      this.postNewComment = !this.postNewComment;
+      this.updateCommentsNewFormText(answerId['_answer']);
+      this.postNewCommentAnswerId = null;
     } else if ( this.postNewComment && this.postNewCommentAnswerId !== answerId) {
-      // console.log('in 3');
+      console.log('in 3');
+      console.log('answerId', answerId);
+      console.log(this.postNewCommentAnswerId);
+      console.log(answerId);
       this.updateCommentsNewFormText(this.postNewCommentAnswerId);
       this.postNewCommentAnswerId = answerId;
       this.updateCommentsNewFormText(answerId);
     } else {
-      // console.log('in 4');
+      console.log('in 4');
       window.alert('UNKNOWN ERROR WITH TOGGLE POST NEW COMMENT');
     }
     // TODO: Need to emit to child comment form something to tell it to reset.

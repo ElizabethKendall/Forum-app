@@ -54,31 +54,32 @@ export class CommentsNewComponent implements OnInit {
     this.setCommentNew();
     this.createComment();
     // console.log('in postComment', this.comment);
+    this.setCommentNew();
   }
 
   createComment() {
-    // console.log('in createComment');
-    this._mainService.createComment(this.comment, (res) => {
-      if ( res['message'] !== 'Success' ) {
-        this.showResErrors(res);
-        // tslint:disable-next-line:max-line-length
-        // TODO: Figure out how to show errors on html since can't use the same directive for errors for reactive forms as with as with template forms.
-      } else {
-        // console.log('Success');
-        const savedComment = res['data'];
-        console.log('Proceeding to addCommentToUser!');
-        this.comment = savedComment;
-        console.log('savedComment', savedComment);
-        // TODO: set the user and answer from the database with promises.
-        this.addCommentToUser(savedComment);
-        this.addCommentToAnswer(savedComment);
-        this.clearAddCommentForm();
-        this.reloadQuestionsComponent();
-        // console.log('question: ', this.question);
-        // console.log('answer: ', this.answer);
-        // console.log('user: ', this.user);
-      }
-    });
+      // console.log('in createComment');
+      this._mainService.createComment(this.comment, (res) => {
+        if ( res['message'] !== 'Success' ) {
+          this.showResErrors(res);
+          // tslint:disable-next-line:max-line-length
+          // TODO: Figure out how to show errors on html since can't use the same directive for errors for reactive forms as with as with template forms.
+        } else {
+          // console.log('Success');
+          const savedComment = res['data'];
+          console.log('Proceeding to addCommentToUser!');
+          this.comment = savedComment;
+          console.log('savedComment', savedComment);
+          // TODO: set the user and answer from the database with promises.
+          this.addCommentToUser(savedComment);
+          this.addCommentToAnswer(savedComment);
+          this.clearAddCommentForm();
+          this.reloadQuestionsComponent();
+          // console.log('question: ', this.question);
+          // console.log('answer: ', this.answer);
+          // console.log('user: ', this.user);
+        }
+      });
   }
   reloadQuestionsComponent() {
     this.updateQuestionEvent.emit(this.comment);

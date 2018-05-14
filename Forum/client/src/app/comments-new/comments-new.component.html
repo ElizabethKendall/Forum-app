@@ -1,4 +1,12 @@
 <div class="container">
+  <!-- pristine {{questionsAddCommentForm.pristine}} <br>
+  dirty {{questionsAddCommentForm.dirty}} <br>
+  valid {{questionsAddCommentForm.valid}} <br>
+  errors {{questionsAddCommentForm.errors | json}} <br>
+  status {{questionsAddCommentForm.status}} <br>
+  content {{questionsAddCommentForm.content}} <br>
+  content {{questionsAddCommentForm.value['content']}}<br> -->
+  <!-- {{comment | json}} -->
   <form>
     <div class="form-group" [formGroup]="questionsAddCommentForm">
       <div class="form-item create-input">
@@ -7,10 +15,10 @@
         <textarea class="form-control" type="text" id="input-content" name="content" placeholder="Comment" minlength="1" maxlength="140" required formControlName="content"></textarea>
       </div>
       <!-- <input *ngIf='!commentContent.errors' type="submit" value="Post" (click)="createComment()" class="btn btn-primary"> -->
-      <input type="submit" value="Post" (click)="postComment()" class="btn btn-outline-success btn-child-forms">
+      <input *ngIf='questionsAddCommentForm.valid && !questionsAddCommentForm.pristine' type="submit" value="Post" (click)="postComment()" class="btn btn-outline-success btn-child-forms">
     </div>
   </form>
-  <!-- <div class="error-msg" *ngIf='commentContent.errors && commentContent.dirty'>
+  <div class="error-msg" *ngIf='!questionsAddCommentForm.valid && !questionsAddCommentForm.pristine'>
       <p class="text-warning">Comment must be 1 to 140 characters long.</p>
-  </div> -->
+  </div>
 </div>

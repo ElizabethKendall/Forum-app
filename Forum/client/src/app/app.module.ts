@@ -16,6 +16,7 @@ import { QuestionsComponent } from './questions/questions.component';
 import { FilterForumTablePipe } from './filter-forum-table.pipe';
 import { AnswersNewComponent } from './answers-new/answers-new.component';
 import { CommentsNewComponent } from './comments-new/comments-new.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -37,6 +38,7 @@ import { CommentsNewComponent } from './comments-new/comments-new.component';
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
+    BrowserAnimationsModule
   ],
   providers: [MainService, AnswersNewComponent],
   bootstrap: [AppComponent]
