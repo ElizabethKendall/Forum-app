@@ -1,7 +1,3 @@
-*{
-    outline: 1px red solid;
-}
-
 #mainlogo{
     width: 64px;
 }
@@ -29,17 +25,6 @@ nav{
     padding-right: 0.8rem;
 }
 
-#t1{
-
-}
-
-#t2{
-    
-}
-
 #title-container a{
     display: block;
-}
-
-#title-container{
 }

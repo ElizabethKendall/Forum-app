@@ -1,14 +1,6 @@
 /* You can add global styles to this file, and also import other style files */
-
-@font-face{
-    font-family: "Almendra";
-    src: url('./fonts/almendra-regular-webfont.ttf');
-
-}
-
 *{
     /* outline: red 1px solid; */
-    font-family: "Almendra";
 }
 
 h1 h2 h3 h4 h5 h6 form{

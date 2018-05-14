@@ -36,7 +36,7 @@ import { CommentsNewComponent } from './comments-new/comments-new.component';
     BrowserModule,
     FormsModule,
     ReactiveFormsModule,
-    HttpClientModule
+    HttpClientModule,
   ],
   providers: [MainService, AnswersNewComponent],
   bootstrap: [AppComponent]

@@ -15,7 +15,8 @@
     "fs": "^0.0.1-security",
     "mongoose": "^5.0.12",
     "mongoose-validate": "git://github.com/RGBboy/mongoose-validate.git",
-    "path": "^0.12.7"
+    "path": "^0.12.7",
+    "scrollreveal": "^3.4.0"
   },
   "devDependencies": {},
   "scripts": {
