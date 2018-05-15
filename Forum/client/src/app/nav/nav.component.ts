@@ -1,4 +1,5 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { MainService } from './../main.service';
 
 @Component({
   selector: 'app-nav',
@@ -7,9 +8,16 @@ import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 })
 export class NavComponent implements OnInit {
   @Output() updateAppEvent = new EventEmitter<any>();
-  constructor() { }
+  userId: string;
+
+  constructor(private _mainService: MainService) {
+    this.userId = null;
+  }
 
   ngOnInit() {
+    this._mainService.loggedUser.subscribe((data) => {
+      this.userId = data;
+    });
   }
   talkToAppComponent() {
     this.updateAppEvent.emit('Nav');

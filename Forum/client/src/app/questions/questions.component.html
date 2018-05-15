@@ -10,8 +10,8 @@
         <div class="float-right question-top-right">
           <form>
             <div class="form-group">
-              <select name="userXpInput" class="form-control" [(ngModel)]="userXp" type="select">
-                <option *ngFor="let opt of userXpOpts" [value]="opt[0]">{{opt[1]}}</option>
+              <select name="userXpInput" id="userXpInput" class="form-control text-warning" [(ngModel)]="userXp" type="select">
+                <option class="userXpInputOpt" *ngFor="let opt of userXpOpts" [value]="opt[0]">{{opt[1]}}</option>
                 <!-- <div *ngFor="let opt of userXpOpts" >{{opt}}</div> -->
               </select>
             </div>
@@ -35,7 +35,8 @@
             </div>
             <div class="card-body">
               <div class="forum-content-type float-left">Q</div>
-                {{question.content}}
+              <div class="question-content-line"></div>
+              <div class="question-content">{{question.content}}</div>
             </div>    
             <div class="card-actions card-actions-lower float-right"><a class="text-primary" (click)="questionDelete(question._id)">Delete Question</a></div>
             <div *ngIf="postNewAnswer&& userXp==1" id="answers-new-form" class="answers-new-form">

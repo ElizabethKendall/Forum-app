@@ -8,7 +8,7 @@ export class MainService {
   loggedUser: BehaviorSubject<string>;
 
   constructor(private _http: HttpClient) {
-  this.loggedUser = new BehaviorSubject('');
+    this.loggedUser = new BehaviorSubject('');
   }
 
   register(user, cb) {

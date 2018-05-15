@@ -1,5 +1,6 @@
 #mainlogo{
     width: 64px;
+    vertical-align: -1.4rem;
 }
 
 #title{
@@ -27,4 +28,9 @@ nav{
 
 #title-container a{
     display: block;
+}
+
+#navtitle {
+    display: inline-block;
+    margin-top: .8rem;
 }
